@@ -1566,7 +1566,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   P1Skill: {fileID: 114905020}
-  P2Skill: {fileID: 1321698429}
 --- !u!1 &723137815
 GameObject:
   m_ObjectHideFlags: 0
@@ -3458,7 +3457,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1507557585
 RectTransform:
   m_ObjectHideFlags: 0
