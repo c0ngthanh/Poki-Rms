@@ -28,6 +28,12 @@ public class CharacterBase : MonoBehaviour
     public void AddNewCompleteAction(ListenerDelegate<EventObject> listener){
         this.armatureComponent.AddDBEventListener(EventObject.COMPLETE, listener);
     }
+    public bool HasEventListener(string stringName){
+        return this.armatureComponent.HasDBEventListener(stringName);
+    }
+    public void RemoveCompleteAction(ListenerDelegate<EventObject> listener){
+        this.armatureComponent.RemoveDBEventListener(EventObject.COMPLETE, listener);
+    }
     public void PlayIdleAnimation(){
         armatureComponent.animation.Play("Idle");
     }

@@ -94,7 +94,7 @@ public class Monster : MonoBehaviour
                     }
                     break;
                 case GemSO.Type.ELEMENT:
-                    Debug.Log("Change Element");
+                    GameManager.instance.battleHandler.SetElement(true);
                 break;
             }
         }
@@ -117,6 +117,15 @@ public class Monster : MonoBehaviour
     public int GetMonsterHP(){
         return HP;
     }
+    public int GetMonsterDef(){
+        return DEF;
+    }
+    public int GetMonsterCritRate(){
+        return critRate;
+    }
+    public int GetMonsterCritDame(){
+        return critDame;
+    }
     public int GetMonsterATK(){
         return ATK;
     }
@@ -137,5 +146,8 @@ public class Monster : MonoBehaviour
     }
     public void SetIsSkill(bool value){
         isSkill=value;
+    }
+    public MonsterType GetMonsterType(){
+        return type;
     }
 }

@@ -81,8 +81,7 @@ MonoBehaviour:
   baseEnergy: 10
   baseHR: 10
   baseCritRate: 10
-  baseCritDame: 10
-  skill: {fileID: 11400000, guid: 300ee16ecb5b75d41b977b8e0465413d, type: 2}
+  baseCritDame: 150
   isSkill: 0
 --- !u!114 &2301546706395269732
 MonoBehaviour:

@@ -18,6 +18,7 @@ public class BattleHandler : MonoBehaviour
     private CharacterBattle player2Character;
     private CharacterBattle activeCharacter;
     private State state;
+    private bool isElement = false;
     public event EventHandler onBattleComplete;
     private enum State
     {
@@ -122,15 +123,93 @@ public class BattleHandler : MonoBehaviour
     }
     public void BattleDamage(Monster AttackMonster, Monster AttackedMonster)
     {
-        AttackedMonster.SetMonsterStats(Monster.MonsterStats.HP, AttackedMonster.GetMonsterHP() - AttackMonster.GetMonsterATK());
+        float effectiveBonus = GameConfig.baseCounterBonus;
+        if (isElement)
+        {
+            effectiveBonus = GetEffectiveBonus(AttackMonster.GetMonsterType(), AttackedMonster.GetMonsterType());
+        }
+        int monsterDEF = AttackedMonster.GetMonsterDef();
+        float attackDame = AttackMonster.GetMonsterATK() * effectiveBonus * (1 - (monsterDEF / (monsterDEF + 100f)));
+        Debug.Log("AttackMonster.GetMonsterATK(): " + AttackMonster.GetMonsterATK());
+        Debug.Log("effectiveBonus: " + effectiveBonus);
+        Debug.Log("monsterDEF: " + (1 - (monsterDEF / (monsterDEF + 100f))));
+        Debug.Log("Dame: " + attackDame);
+        if (AttackMonster.GetMonsterCritRate() > UnityEngine.Random.Range(0, 100))
+        {
+            attackDame = attackDame * AttackedMonster.GetMonsterCritDame() / 100;
+        }
+        AttackedMonster.SetMonsterStats(Monster.MonsterStats.HP, AttackedMonster.GetMonsterHP() - attackDame);
         GameManager.instance.UpdateBattleUI();
     }
     public void PlayVFX(Transform attackedMonster)
     {
         Instantiate(VFXEffect, attackedMonster.position + Vector3.up * 2 - 5 * Vector3.forward, Quaternion.identity);
     }
+    private float GetEffectiveBonus(Monster.MonsterType AttackMonsterType, Monster.MonsterType AttackedMonsterType)
+    {
+        switch (AttackMonsterType)
+        {
+            case Monster.MonsterType.Fire:
+                if (AttackedMonsterType == Monster.MonsterType.Grass)
+                {
+                    return GameConfig.effectiveBonus;
+                }
+                if (AttackedMonsterType == Monster.MonsterType.Water)
+                {
+                    return GameConfig.uneffectiveBonus;
+                }
+                break;
+            case Monster.MonsterType.Water:
+                if (AttackedMonsterType == Monster.MonsterType.Fire)
+                {
+                    return GameConfig.effectiveBonus;
+                }
+                if (AttackedMonsterType == Monster.MonsterType.Grass || AttackedMonsterType == Monster.MonsterType.Electric)
+                {
+                    return GameConfig.uneffectiveBonus;
+                }
+                break;
+            case Monster.MonsterType.Grass:
+                if (AttackedMonsterType == Monster.MonsterType.Water || AttackedMonsterType == Monster.MonsterType.Electric)
+                {
+                    return GameConfig.effectiveBonus;
+                }
+                if (AttackedMonsterType == Monster.MonsterType.Fire)
+                {
+                    return GameConfig.uneffectiveBonus;
+                }
+                break;
+            case Monster.MonsterType.Electric:
+                if (AttackedMonsterType == Monster.MonsterType.Water)
+                {
+                    return GameConfig.effectiveBonus;
+                }
+                if (AttackedMonsterType == Monster.MonsterType.Grass)
+                {
+                    return GameConfig.uneffectiveBonus;
+                }
+                break;
+            case Monster.MonsterType.Dark:
+                if (AttackedMonsterType == Monster.MonsterType.Light)
+                {
+                    return GameConfig.effectiveBonus;
+                }
+                break;
+            case Monster.MonsterType.Light:
+                if (AttackedMonsterType == Monster.MonsterType.Dark)
+                {
+                    return GameConfig.effectiveBonus;
+                }
+                break;
+        }
+        return GameConfig.baseCounterBonus;
+    }
     public Monster GetMonster1() { return player1Character.GetComponent<Monster>(); }
     public Monster GetMonster2() { return player2Character.GetComponent<Monster>(); }
     public CharacterBattle GetCharacterBattle1() { return player1Character; }
     public CharacterBattle GetCharacterBattle2() { return player2Character; }
+    public void SetElement(bool element)
+    {
+        this.isElement = element;
+    }
 }
