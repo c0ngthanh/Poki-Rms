@@ -18,13 +18,24 @@ public class GameManager : MonoBehaviour
         match3.OnLevelSet += SetUpUI;
     }
     private void Start() {
+        // battleHandler.GetMonster1().OnMonsterStatsChange += UpdateUI;
+        // battleHandler.GetMonster2().OnMonsterStatsChange += UpdateUI;
         battleHandler.SetUpBattle();
-        ui.battleUI.SetUp(battleHandler.GetMonster1().GetMonsterMaxHP(),
-                          battleHandler.GetMonster1().GetMonsterMaxEnergy(),
-                          battleHandler.GetMonster2().GetMonsterMaxHP(),
-                          battleHandler.GetMonster2().GetMonsterMaxEnergy());
         ui.SetUp();
     }
+
+    public void UpdateUI(object sender, Monster.MonsterStatsChangeEventArgs e)
+    {
+        Monster temp = sender as Monster;
+        if(temp == battleHandler.GetMonster1()){
+            ui.battleUI.UpdateUI(1,e.HP,e.energy,e.maxHP,e.maxEnergy);
+        }else if(temp == battleHandler.GetMonster2()){
+            ui.battleUI.UpdateUI(2,e.HP,e.energy,e.maxHP,e.maxEnergy);
+        }else{
+            Debug.LogError("Unknown Monster");
+        }
+    }
+
     private void SetUpUI(object sender, Match3.OnLevelSetEventArgs e)
     {
         ui.resultPanel.SetUp(e.levelSO);
@@ -47,14 +58,14 @@ public class GameManager : MonoBehaviour
         HideUIWhenAttack();
         ui.resultPanel.UpdateResult(match3.totalGemClear);
         battleHandler.UpdateStats(match3.totalGemClear);
-        UpdateBattleUI();
         battleHandler.BattleHandlerUpdate();
+        // UpdateBattleUI();
         match3.ClearDictionary();
     }
-    public void UpdateBattleUI(){
-        ui.battleUI.UpdateUI(battleHandler.GetMonster1().GetMonsterHP(),
-                             battleHandler.GetMonster1().GetMonsterEnergy(),
-                             battleHandler.GetMonster2().GetMonsterHP(),
-                             battleHandler.GetMonster2().GetMonsterEnergy());
-    }
+    // public void UpdateBattleUI(){
+    //     ui.battleUI.UpdateUI(battleHandler.GetMonster1().GetMonsterHP(),
+    //                          battleHandler.GetMonster1().GetMonsterEnergy(),
+    //                          battleHandler.GetMonster2().GetMonsterHP(),
+    //                          battleHandler.GetMonster2().GetMonsterEnergy());
+    // }
 }

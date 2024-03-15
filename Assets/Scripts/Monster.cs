@@ -1,9 +1,25 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class Monster : MonoBehaviour
 {
+    public class MonsterStatsChangeEventArgs : EventArgs
+    {
+        public int HP;
+        public int ATK;
+        public int DEF;
+        public int energy;
+        public int speed;
+        public int ER;
+        public int HR;
+        public int critRate;
+        public int critDame;
+        public int maxEnergy;
+        public int maxHP;
+    }
+    public event EventHandler<MonsterStatsChangeEventArgs> OnMonsterStatsChange;
     public enum MonsterStats
     {
         HP,
@@ -46,22 +62,28 @@ public class Monster : MonoBehaviour
     private int HR;
     private int critRate;
     private int critDame;
+    private int maxEnergy;
+    private int maxHP;
     //stats increase Rate
     private float ATK_INCREASE_RATE = 0.1f;
     private float DEF_INCREASE_RATE = 0.1f;
     private float HEAL_INCREASE_RATE = 0.05f;
     private float ENERGY_INCREASE_RATE = 5;
 
-    public void SetupMonster(){
+    public void SetupMonster()
+    {
         HP = baseHP;
         DEF = baseDEF;
         ATK = baseATK;
         energy = 0;
+        maxEnergy = baseEnergy;
+        maxHP = baseHP;
         speed = baseSpeed;
         ER = baseER;
         HR = baseHR;
         critRate = baseCritRate;
         critDame = baseCritDame;
+        UpdateMonsterNotification();
     }
     public void UpdateStats(Dictionary<GemSO, int> gemSOList)
     {
@@ -95,11 +117,13 @@ public class Monster : MonoBehaviour
                     break;
                 case GemSO.Type.ELEMENT:
                     GameManager.instance.battleHandler.SetElement(true);
-                break;
+                    break;
             }
         }
+        UpdateMonsterNotification();
     }
-    public void SetMonsterStats(MonsterStats stats,float value){
+    public void SetMonsterStats(MonsterStats stats, float value)
+    {
         switch (stats)
         {
             case MonsterStats.HP: HP = (int)value; break;
@@ -113,41 +137,71 @@ public class Monster : MonoBehaviour
             case MonsterStats.CRITRATE: critRate = (int)value; break;
             default: Debug.Log("Unknown Stats"); break;
         }
+        UpdateMonsterNotification();
     }
-    public int GetMonsterHP(){
+    private void UpdateMonsterNotification()
+    {
+        OnMonsterStatsChange?.Invoke(this, new MonsterStatsChangeEventArgs
+        {
+            HP = this.HP,
+            ATK = this.ATK,
+            DEF = this.DEF,
+            energy = this.energy,
+            speed = this.speed,
+            ER = this.ER,
+            HR = this.HR,
+            critRate = this.critRate,
+            critDame = this.critDame,
+            maxEnergy = this.maxEnergy,
+            maxHP = this.maxHP
+        });
+    }
+    public int GetMonsterHP()
+    {
         return HP;
     }
-    public int GetMonsterDef(){
+    public int GetMonsterDef()
+    {
         return DEF;
     }
-    public int GetMonsterCritRate(){
+    public int GetMonsterCritRate()
+    {
         return critRate;
     }
-    public int GetMonsterCritDame(){
+    public int GetMonsterCritDame()
+    {
         return critDame;
     }
-    public int GetMonsterATK(){
+    public int GetMonsterATK()
+    {
         return ATK;
     }
-    public int GetMonsterEnergy(){
+    public int GetMonsterEnergy()
+    {
         return energy;
     }
-    public int GetMonsterMaxEnergy(){
+    public int GetMonsterMaxEnergy()
+    {
         return baseEnergy;
     }
-    public int GetMonsterMaxHP(){
+    public int GetMonsterMaxHP()
+    {
         return baseHP;
     }
-    public SkillBase GetSkillBase(){
+    public SkillBase GetSkillBase()
+    {
         return GetComponent<SkillBase>();
     }
-    public bool GetIsSkill(){
+    public bool GetIsSkill()
+    {
         return isSkill;
     }
-    public void SetIsSkill(bool value){
-        isSkill=value;
+    public void SetIsSkill(bool value)
+    {
+        isSkill = value;
     }
-    public MonsterType GetMonsterType(){
+    public MonsterType GetMonsterType()
+    {
         return type;
     }
 }

@@ -30,6 +30,8 @@ public class BattleHandler : MonoBehaviour
         player1Character = SpawnCharacter(true);
         player2Character = SpawnCharacter(false);
         SetActiveCharacter(player1Character);
+        player1Character.GetComponent<Monster>().OnMonsterStatsChange += GameManager.instance.UpdateUI;
+        player2Character.GetComponent<Monster>().OnMonsterStatsChange += GameManager.instance.UpdateUI;
         SetUpMonster();
     }
     public void BattleHandlerUpdate()
@@ -45,6 +47,7 @@ public class BattleHandler : MonoBehaviour
                 {
                     GameManager.instance.ShowUIAfterAttack();
                     ChooseNextActiveCharacter();
+                    player1Character.GetComponent<Monster>().SetMonsterStats(Monster.MonsterStats.ENERGY,0);
                 });
                 }
                 else
@@ -53,6 +56,7 @@ public class BattleHandler : MonoBehaviour
                 {
                     GameManager.instance.ShowUIAfterAttack();
                     ChooseNextActiveCharacter();
+                    player2Character.GetComponent<Monster>().SetMonsterStats(Monster.MonsterStats.ENERGY,0);
                 });
                 }
             }
@@ -130,16 +134,12 @@ public class BattleHandler : MonoBehaviour
         }
         int monsterDEF = AttackedMonster.GetMonsterDef();
         float attackDame = AttackMonster.GetMonsterATK() * effectiveBonus * (1 - (monsterDEF / (monsterDEF + 100f)));
-        Debug.Log("AttackMonster.GetMonsterATK(): " + AttackMonster.GetMonsterATK());
-        Debug.Log("effectiveBonus: " + effectiveBonus);
-        Debug.Log("monsterDEF: " + (1 - (monsterDEF / (monsterDEF + 100f))));
-        Debug.Log("Dame: " + attackDame);
         if (AttackMonster.GetMonsterCritRate() > UnityEngine.Random.Range(0, 100))
         {
             attackDame = attackDame * AttackedMonster.GetMonsterCritDame() / 100;
         }
         AttackedMonster.SetMonsterStats(Monster.MonsterStats.HP, AttackedMonster.GetMonsterHP() - attackDame);
-        GameManager.instance.UpdateBattleUI();
+        // GameManager.instance.UpdateBattleUI();
     }
     public void PlayVFX(Transform attackedMonster)
     {

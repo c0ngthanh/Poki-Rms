@@ -782,14 +782,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e3a54a048f0d8294aab51a53cee050dc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player1HealthMax: 0
-  player1EnergyMax: 0
   player1HealthValueText: {fileID: 900603263}
   player1HealthSlider: {fileID: 242511001}
   player1EnergyValueText: {fileID: 1353088541}
   player1EnergySlider: {fileID: 882023949}
-  player2HealthMax: 0
-  player2EnergyMax: 0
   player2HealthValueText: {fileID: 1470586928}
   player2HealthSlider: {fileID: 1766669245}
   player2EnergyValueText: {fileID: 92768442}
@@ -1566,6 +1562,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   P1Skill: {fileID: 114905020}
+  P1Monster: {fileID: 0}
 --- !u!1 &723137815
 GameObject:
   m_ObjectHideFlags: 0
