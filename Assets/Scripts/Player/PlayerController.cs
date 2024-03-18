@@ -41,5 +41,10 @@ public class PlayerController : MonoBehaviour
 
         animationController.SetBool("isMoving", isMoving);
         GetComponent<Rigidbody2D>().velocity = input;
+        // if(Input.GetKeyDown(KeyCode.Z)){
+        //     Monster monster = Instantiate(GetComponent<PlayerData>().monsters[0]);
+        //     monster.transform.parent = transform;
+        //     monster.transform.localScale = new Vector3(0.5f,0.5f,0.5f);
+        // }
     }
 }
