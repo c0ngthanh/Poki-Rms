@@ -220,4 +220,7 @@ public class Monster : MonoBehaviour
     {
         return type;
     }
+    public MonsterSO GetMonsterSO(){
+        return monsterSO;
+    }
 }
