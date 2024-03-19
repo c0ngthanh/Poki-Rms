@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class MonsterBookItem : ItemBase
 {
-    private const float ITEM_HEIGHT = 50f;
+    private const float ITEM_HEIGHT = 150f;
     [SerializeField] private Image backgroundImage;
     [SerializeField] private Image monsterImage;
     [SerializeField] private TMP_Text monsterName;

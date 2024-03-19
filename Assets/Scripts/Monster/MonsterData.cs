@@ -6,9 +6,9 @@ using UnityEngine;
 
 public class MonsterData : MonoBehaviour
 {
-    public Monster[] allMonsters;
+    public static Monster[] allMonsters;
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         allMonsters = Resources.LoadAll<Monster>("Prefab/Monster");
     }
