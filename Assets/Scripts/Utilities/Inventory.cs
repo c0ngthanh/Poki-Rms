@@ -17,6 +17,7 @@ public class Inventory
         this.itemObject = itemObject;
         this.itemObjectList = new List<GameObject>();
         this.numberOfPages = Math.Ceiling(itemObjectList.Count/this.itemPerPage);
+
     }
     public void ShowBookFirstTime(){
         if(currentPage ==1){
@@ -32,10 +33,35 @@ public class Inventory
         }
     }
     public void NextPage(){
-        if(currentPage <= this.numberOfPages){
-            for(int i=0;i<itemObjectList.Count;i++){
-
+        if(currentPage < numberOfPages){
+            for(double i=itemPerPage*(currentPage-1);i<itemObjectList.Count && i<itemPerPage*currentPage;i++){
+                Debug.Log(i);
+                itemObjectList[(int)i].SetActive(false);
             }
+            for(double i=itemPerPage*currentPage;i<itemObjectList.Count && i<itemPerPage*(currentPage+1);i++){
+                Debug.Log(i);
+                itemObjectList[(int)i].SetActive(true);
+            }
+            currentPage++;
+        }else{
+            return;
         }
+    }
+    public void PreviousPage(){
+        if(currentPage > 1){
+            for(double i= Math.Min(itemPerPage*currentPage-1,itemObjectList.Count-1);i>=0 && i>=itemPerPage*(currentPage-1);i--){
+                itemObjectList[(int)i].SetActive(false);
+            }
+            for(double i=itemPerPage*(currentPage-1)-1;i>=0 && i>=itemPerPage*(currentPage-2);i--){
+                itemObjectList[(int)i].SetActive(true);
+            }
+            currentPage--;
+        }else{
+            return;
+        }
+    }
+    public void Add(MonsterBookItem item){
+        itemObjectList.Add(item.gameObject);
+        numberOfPages = Math.Ceiling(itemObjectList.Count/this.itemPerPage);
     }
 }
