@@ -35,11 +35,9 @@ public class Inventory
     public void NextPage(){
         if(currentPage < numberOfPages){
             for(double i=itemPerPage*(currentPage-1);i<itemObjectList.Count && i<itemPerPage*currentPage;i++){
-                Debug.Log(i);
                 itemObjectList[(int)i].SetActive(false);
             }
             for(double i=itemPerPage*currentPage;i<itemObjectList.Count && i<itemPerPage*(currentPage+1);i++){
-                Debug.Log(i);
                 itemObjectList[(int)i].SetActive(true);
             }
             currentPage++;
