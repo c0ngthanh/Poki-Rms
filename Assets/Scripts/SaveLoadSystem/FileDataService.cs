@@ -22,6 +22,7 @@ public class FileDataService : IDataService
         if(!overwrite && File.Exists(fileLocation)){
             throw new IOException($"The file  '{data.Name}.{fileExtension}' +  already exists and cannot be overwritten.");
         }
+        Debug.Log(fileLocation);
         File.WriteAllText(fileLocation, serializer.Serialize(data));
     }
     public GameData Load(string name)
