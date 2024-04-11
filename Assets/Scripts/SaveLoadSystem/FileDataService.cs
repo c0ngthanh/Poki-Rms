@@ -11,7 +11,7 @@ public class FileDataService : IDataService
     public FileDataService(ISerializer serializer){
         this.serializer = serializer;
         dataPath = Application.persistentDataPath;
-        fileExtension = ".json";
+        fileExtension = "json";
     }
     string GetPathToFile(string fileName){
         return Path.Combine(dataPath, string.Concat(fileName,".",fileExtension));
@@ -28,8 +28,8 @@ public class FileDataService : IDataService
     public GameData Load(string name)
     {
         string fileLocation = GetPathToFile(name);
-        if(File.Exists(fileLocation)){
-            throw new IOException($"The file  '{name}.{fileExtension}' +  already exists and cannot be overwritten.");
+        if(!File.Exists(fileLocation)){
+            throw new IOException($"The file  '{name}.{fileExtension}' +  not exists.");
         }
         return serializer.Deserialize<GameData>(File.ReadAllText(fileLocation));
     }

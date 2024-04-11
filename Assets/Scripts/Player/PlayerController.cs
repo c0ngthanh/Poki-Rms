@@ -5,10 +5,11 @@ using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
+    public List<Monster> monstersList;
     [SerializeField] private float playerSpeed;
     [SerializeField] private bool isMoving;
     [SerializeField] private Vector2 input;
-    [SerializeField] private Animator animationController;
+    private Animator animationController;
     // Start is called before the first frame update
     void Start()
     {
