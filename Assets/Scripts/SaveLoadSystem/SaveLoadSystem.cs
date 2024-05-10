@@ -17,6 +17,7 @@ public class GameData
     public List<MonsterDataSave> monsterLists;
 }
 // Start is called before the first frame update
+[ExecuteInEditMode]
 public class SaveLoadSystem : MonoBehaviour
 {
     [SerializeField] public GameData gameData;
@@ -26,8 +27,7 @@ public class SaveLoadSystem : MonoBehaviour
     private void Awake()
     {
         dataService = new FileDataService(new JsonSerializer());
-    }
-    private void Start(){
+        Load("Game");
         LoadMonster();
     }
     public void Save()
@@ -37,18 +37,17 @@ public class SaveLoadSystem : MonoBehaviour
     public void Load(string gameName)
     {
         gameData = dataService.Load(gameName);
+        Debug.Log("Load game successfully");
     }
     private void LoadMonster(){
         foreach(GameData.MonsterDataSave data in gameData.monsterLists)
         {
             foreach(Monster monster in MonsterData.allMonsters){
                 if(data.id == monster.GetMonsterSO().ID){
-                    Monster temp = Resources.Load<Monster>("Prefab/Monster/" + monster.GetMonsterSO().name);
-                    player.monstersList.Add(temp);
-                    Debug.Log(temp);
-                    Debug.Log(temp.GetMonsterATK());
-                    temp.SetMonsterStats(Monster.MonsterStats.ATK,data.atk);
-                    Debug.Log(temp.GetMonsterATK());
+                    // Monster temp = Resources.Load<Monster>("Prefab/Monster/" + monster.GetMonsterSO().name);
+                    // temp.SetMonsterStats(Monster.MonsterStats.ATK,data.atk);
+                    Monster temp = new Monster(data.id,data.atk,monster.GetMonsterSO());
+                    player.GetMonstersList().Add(temp);
                 }
             }
         }

@@ -5,13 +5,18 @@ using UnityEngine;
 
 public class LoadPanel : MonoBehaviour
 {
-    public GameObject go;
+    public Animator animator;
+    public LoadPanel go;
+    public LoadPanelAnimation loadPanelAnimation;
     // Update is called once per frame
-    void Update()
-    {
-        if (Input.GetMouseButtonDown(0))
-        {
-           Instantiate(go);
-        }
+    private void Start(){
+        loadPanelAnimation.go = gameObject;
+    }
+    public void ShowGachaPanel(string color){
+        LoadPanel loadPanel = Instantiate(go);
+        loadPanel.animator.SetTrigger(color);
+    }
+    public void Hide(){
+        Destroy(gameObject);
     }
 }

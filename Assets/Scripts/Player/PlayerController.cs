@@ -5,12 +5,17 @@ using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
-    public List<Monster> monstersList;
+    public static PlayerController instance;
+    private List<Monster> monstersList;
     [SerializeField] private float playerSpeed;
     [SerializeField] private bool isMoving;
     [SerializeField] private Vector2 input;
     private Animator animationController;
     // Start is called before the first frame update
+    void Awake(){
+        instance = this;
+        monstersList = new List<Monster>();
+    }
     void Start()
     {
         animationController = GetComponent<Animator>();
@@ -46,5 +51,12 @@ public class PlayerController : MonoBehaviour
         if(Input.GetKeyDown(KeyCode.Z)){
             SceneManager.LoadScene("BattleScene");
         }
+        // if(Input.GetMouseButtonDown(0)){
+        //     LoadPanel loadPanel = Resources.Load<LoadPanel>("Prefab/UI/LoadPanel");
+        //     loadPanel.ShowGachaPanel("Red");
+        // }
+    }
+    public List<Monster> GetMonstersList(){
+        return monstersList;
     }
 }

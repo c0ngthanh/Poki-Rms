@@ -11,5 +11,9 @@ public class MonsterData : MonoBehaviour
     void Awake()
     {
         allMonsters = Resources.LoadAll<Monster>("Prefab/Monster");
+        foreach (Monster item in allMonsters)
+        {
+            item.SetupMonsterWithOutRegisterEvent();
+        }
     }
 }

@@ -1,13 +1,22 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
-
+public class fileSave{
+        public string name;
+        public DateTime date;
+        public fileSave(string name, DateTime date){
+            this.name = name;
+            this.date = date;
+        }
+    }
 public class FileDataService : IDataService
 {
     ISerializer serializer;
     string dataPath;
     string fileExtension;
+    static fileSave[] result;
     public FileDataService(ISerializer serializer){
         this.serializer = serializer;
         dataPath = Application.persistentDataPath;
@@ -24,6 +33,17 @@ public class FileDataService : IDataService
         }
         Debug.Log(fileLocation);
         File.WriteAllText(fileLocation, serializer.Serialize(data));
+    }
+    public static fileSave[] GetFileSaves(){
+        string[] filePaths = Directory.GetFiles(Application.persistentDataPath, "*.json");
+        result = new fileSave[filePaths.Length];
+        for (int i = 0; i < filePaths.Length; i++)
+        {
+            string fileName = Path.GetFileNameWithoutExtension(filePaths[i]);
+            DateTime modification = File.GetLastWriteTime(filePaths[i]);
+            result[i] = new fileSave(fileName, modification);
+        }
+        return result;
     }
     public GameData Load(string name)
     {

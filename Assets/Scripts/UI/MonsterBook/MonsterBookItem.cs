@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -10,9 +11,18 @@ public class MonsterBookItem : ItemBase
     [SerializeField] private Image backgroundImage;
     [SerializeField] private Image monsterImage;
     [SerializeField] private TMP_Text monsterName;
-    public override void LoadSprite(GameObject obj)
+    public override void LoadSprite(Monster obj)
     {
-        MonsterSO monsterSO = obj.GetComponent<Monster>().GetMonsterSO();
+        GetComponent<Button>().onClick.AddListener(() => {
+            MonsterInfo info = Instantiate(Resources.Load<MonsterInfo>(MonsterInfo.fileName()),MainUI.Instance.UIRoot.transform);
+            Debug.Log(obj.GetMonsterATK());
+            foreach (Monster monster in PlayerController.instance.GetMonstersList())
+            {
+                print(monster.GetMonsterATK());
+            }
+            info.SetMonster(obj);
+        });
+        MonsterSO monsterSO = obj.GetMonsterSO();
         monsterImage.sprite = Resources.Load<Sprite>($"MonsterUI/"+monsterSO.monsterName);
         monsterImage.SetNativeSize();
         // Debug.Log(image.GetComponent<RectTransform>().rect.width);

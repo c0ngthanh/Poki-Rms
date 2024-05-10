@@ -71,6 +71,11 @@ public class Monster : MonoBehaviour
     private float DEF_INCREASE_RATE = 0.1f;
     private float HEAL_INCREASE_RATE = 0.05f;
     private float ENERGY_INCREASE_RATE = 5;
+    public Monster(string ID,int atk,MonsterSO monsterSO){
+        this.ATK = atk;
+        this.ID = ID;
+        this.monsterSO =monsterSO;
+    }
     private void SetUpBaseStats()
     {
         baseHP= monsterSO.baseHP;
@@ -100,6 +105,21 @@ public class Monster : MonoBehaviour
         critRate = baseCritRate;
         critDame = baseCritDame;
         UpdateMonsterNotification();
+    }
+    public void SetupMonsterWithOutRegisterEvent()
+    {
+        SetUpBaseStats();
+        HP = baseHP;
+        DEF = baseDEF;
+        ATK = baseATK;
+        energy = 0;
+        maxEnergy = baseEnergy;
+        maxHP = baseHP;
+        speed = baseSpeed;
+        ER = baseER;
+        HR = baseHR;
+        critRate = baseCritRate;
+        critDame = baseCritDame;
     }
     public void UpdateStats(Dictionary<GemSO, int> gemSOList)
     {
@@ -222,5 +242,24 @@ public class Monster : MonoBehaviour
     }
     public MonsterSO GetMonsterSO(){
         return monsterSO;
+    }
+    public void SetMonsterSO(MonsterSO value){
+        monsterSO = value;
+    }
+    public int GetMonsterStat(MonsterStats type){
+        switch (type)
+        {
+            case MonsterStats.HP: return HP;
+            case MonsterStats.SPEED: return speed;
+            case MonsterStats.DEF: return DEF;
+            case MonsterStats.HR: return HR;
+            case MonsterStats.ENERGY: return energy;
+            case MonsterStats.ATK: return ATK;
+            case MonsterStats.CRITRATE: return critRate;
+            case MonsterStats.CRITDAME: return critDame;
+            case MonsterStats.ER: return ER;
+            
+        }
+        return -1;
     }
 }
