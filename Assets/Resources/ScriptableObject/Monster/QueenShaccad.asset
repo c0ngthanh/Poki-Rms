@@ -14,13 +14,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   monsterName: QueenShaccad
   ID: 1015
-  type: 2
-  baseHP: 100
-  baseATK: 100
-  baseDEF: 100
+  level: 1
+  type: 1800
+  job: 3
+  star: 1
+  baseHP: 5
+  baseATK: 150
+  baseDEF: 70
   baseSpeed: 100
   baseER: 100
   baseEnergy: 100
   baseHR: 100
-  baseCritRate: 100
-  baseCritDame: 100
+  baseCritRate: 25
+  baseCritDame: 200

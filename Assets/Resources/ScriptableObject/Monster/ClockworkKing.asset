@@ -14,13 +14,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   monsterName: ClockworkKing
   ID: 1005
-  type: 5
-  baseHP: 100
+  level: 1
+  type: 1100
+  job: 5
+  star: 2
+  baseHP: 4
   baseATK: 100
-  baseDEF: 100
-  baseSpeed: 100
+  baseDEF: 80
+  baseSpeed: 70
   baseER: 100
   baseEnergy: 100
   baseHR: 100
-  baseCritRate: 100
-  baseCritDame: 100
+  baseCritRate: 25
+  baseCritDame: 150

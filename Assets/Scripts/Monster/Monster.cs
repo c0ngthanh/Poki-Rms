@@ -7,6 +7,8 @@ public class Monster : MonoBehaviour
 {
     public class MonsterStatsChangeEventArgs : EventArgs
     {
+        public int level;
+        public int star;
         public int HP;
         public int ATK;
         public int DEF;
@@ -26,24 +28,32 @@ public class Monster : MonoBehaviour
         ATK,
         DEF,
         ENERGY,
+        MAXENERGY,
         SPEED,
         ER,
         HR,
         CRITRATE,
-        CRITDAME
+        CRITDAME,
+        LEVEL,
+        JOB,
+        STAR,
+        TYPE
     }
     public enum MonsterType
     {
-        Fire,
-        Water,
-        Grass,
-        Electric,
-        Light,
-        Dark
+        Fire =1,
+        Water=2,
+        Grass=3,
+        Electric=4,
+        Light=5,
+        Dark=6
     }
     //Prototype
     [SerializeField] private MonsterSO monsterSO;
     private int baseHP;
+    private int baseLevel;
+    private MonsterJob job;
+    private int baseStar;
     private string ID;
     private MonsterType type;
     private int baseATK;
@@ -57,6 +67,8 @@ public class Monster : MonoBehaviour
     [SerializeField] private bool isSkill;
     private int HP;
     private int ATK;
+    private int level;
+    private int star;
     private int DEF;
     private int energy;
     private int speed;
@@ -78,6 +90,9 @@ public class Monster : MonoBehaviour
     }
     private void SetUpBaseStats()
     {
+        baseLevel = monsterSO.level;
+        baseStar = monsterSO.star;
+        job = monsterSO.job;
         baseHP= monsterSO.baseHP;
         ID= monsterSO.ID;
         type= monsterSO.type;
@@ -93,6 +108,8 @@ public class Monster : MonoBehaviour
     public void SetupMonster()
     {
         SetUpBaseStats();
+        star = baseStar;
+        level = baseLevel;
         HP = baseHP;
         DEF = baseDEF;
         ATK = baseATK;
@@ -109,6 +126,8 @@ public class Monster : MonoBehaviour
     public void SetupMonsterWithOutRegisterEvent()
     {
         SetUpBaseStats();
+        star = baseStar;
+        level = baseLevel;
         HP = baseHP;
         DEF = baseDEF;
         ATK = baseATK;
@@ -171,6 +190,10 @@ public class Monster : MonoBehaviour
             case MonsterStats.ER: ER = (int)value; break;
             case MonsterStats.CRITDAME: critDame = (int)value; break;
             case MonsterStats.CRITRATE: critRate = (int)value; break;
+            case MonsterStats.LEVEL: level = (int)value; break;
+            case MonsterStats.STAR: star = (int)value; break;
+            case MonsterStats.TYPE: type = (MonsterType)(int)value; break;
+            case MonsterStats.JOB: job = (MonsterJob)(int)value; break;
             default: Debug.Log("Unknown Stats"); break;
         }
         UpdateMonsterNotification();
@@ -179,6 +202,8 @@ public class Monster : MonoBehaviour
     {
         OnMonsterStatsChange?.Invoke(this, new MonsterStatsChangeEventArgs
         {
+            level = this.level,
+            star = this.star,
             HP = this.HP,
             ATK = this.ATK,
             DEF = this.DEF,
@@ -246,19 +271,23 @@ public class Monster : MonoBehaviour
     public void SetMonsterSO(MonsterSO value){
         monsterSO = value;
     }
-    public int GetMonsterStat(MonsterStats type){
-        switch (type)
+    public int GetMonsterStat(MonsterStats statsType){
+        switch (statsType)
         {
             case MonsterStats.HP: return HP;
             case MonsterStats.SPEED: return speed;
             case MonsterStats.DEF: return DEF;
             case MonsterStats.HR: return HR;
             case MonsterStats.ENERGY: return energy;
+            case MonsterStats.MAXENERGY: return maxEnergy;
             case MonsterStats.ATK: return ATK;
             case MonsterStats.CRITRATE: return critRate;
             case MonsterStats.CRITDAME: return critDame;
             case MonsterStats.ER: return ER;
-            
+            case MonsterStats.LEVEL: return level;
+            case MonsterStats.JOB: return (int)job;
+            case MonsterStats.STAR: return star;
+            case MonsterStats.TYPE: return (int)this.type;
         }
         return -1;
     }

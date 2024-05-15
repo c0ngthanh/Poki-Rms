@@ -14,13 +14,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   monsterName: Thanatos
   ID: 1016
-  type: 3
-  baseHP: 100
-  baseATK: 100
-  baseDEF: 100
-  baseSpeed: 100
+  level: 1
+  type: 1500
+  job: 4
+  star: 2
+  baseHP: 5
+  baseATK: 120
+  baseDEF: 200
+  baseSpeed: 70
   baseER: 100
   baseEnergy: 100
   baseHR: 100
-  baseCritRate: 100
-  baseCritDame: 100
+  baseCritRate: 25
+  baseCritDame: 150

@@ -14,13 +14,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   monsterName: AntQueen
   ID: 1002
-  type: 1
-  baseHP: 100
-  baseATK: 100
-  baseDEF: 100
-  baseSpeed: 100
+  level: 1
+  type: 900
+  job: 2
+  star: 2
+  baseHP: 4
+  baseATK: 110
+  baseDEF: 75
+  baseSpeed: 65
   baseER: 100
   baseEnergy: 100
   baseHR: 100
-  baseCritRate: 100
-  baseCritDame: 100
+  baseCritRate: 25
+  baseCritDame: 150

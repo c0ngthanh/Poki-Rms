@@ -15,11 +15,6 @@ public class MonsterBookItem : ItemBase
     {
         GetComponent<Button>().onClick.AddListener(() => {
             MonsterInfo info = Instantiate(Resources.Load<MonsterInfo>(MonsterInfo.fileName()),MainUI.Instance.UIRoot.transform);
-            Debug.Log(obj.GetMonsterATK());
-            foreach (Monster monster in PlayerController.instance.GetMonstersList())
-            {
-                print(monster.GetMonsterATK());
-            }
             info.SetMonster(obj);
         });
         MonsterSO monsterSO = obj.GetMonsterSO();

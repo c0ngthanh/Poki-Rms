@@ -14,13 +14,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   monsterName: DAidarabotchi
   ID: 1010
-  type: 3
-  baseHP: 100
+  level: 1
+  type: 999
+  job: 4
+  star: 1
+  baseHP: 4
   baseATK: 100
-  baseDEF: 100
-  baseSpeed: 100
+  baseDEF: 60
+  baseSpeed: 70
   baseER: 100
   baseEnergy: 100
   baseHR: 100
-  baseCritRate: 100
-  baseCritDame: 100
+  baseCritRate: 25
+  baseCritDame: 150

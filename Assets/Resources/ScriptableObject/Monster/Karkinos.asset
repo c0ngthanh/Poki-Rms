@@ -14,13 +14,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   monsterName: Karkinos
   ID: 1014
-  type: 1
-  baseHP: 100
+  level: 1
+  type: 960
+  job: 2
+  star: 2
+  baseHP: 4
   baseATK: 100
-  baseDEF: 100
-  baseSpeed: 100
+  baseDEF: 15
+  baseSpeed: 50
   baseER: 100
   baseEnergy: 100
   baseHR: 100
-  baseCritRate: 100
-  baseCritDame: 100
+  baseCritRate: 25
+  baseCritDame: 150
