@@ -21,8 +21,8 @@ public class MainUI : MonoBehaviour
         gachaButton.onClick.AddListener(() => OpenUI("GachaPanel"));
     }
 
-    private void OpenUI(string name)
+    public GameObject OpenUI(string name)
     {
-        Instantiate(Resources.Load("Prefab/UI/" + name) as GameObject,UIRoot.transform);
+        return Instantiate(Resources.Load("Prefab/UI/" + name) as GameObject,UIRoot.transform);
     }
 }

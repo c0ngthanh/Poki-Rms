@@ -15,10 +15,10 @@ MonoBehaviour:
   monsterName: ColossalCrow
   ID: 1008
   level: 1
-  type: 1000
+  type: 2
   job: 2
-  star: 2
-  baseHP: 4
+  star: 4
+  baseHP: 1000
   baseATK: 100
   baseDEF: 45
   baseSpeed: 55

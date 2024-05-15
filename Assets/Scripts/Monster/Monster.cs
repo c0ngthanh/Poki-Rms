@@ -79,10 +79,16 @@ public class Monster : MonoBehaviour
     private int maxEnergy;
     private int maxHP;
     //stats increase Rate
-    private double ATK_INCREASE_RATE = 0.1;
-    private double DEF_INCREASE_RATE = 0.1;
-    private double HEAL_INCREASE_RATE = 0.05;
-    private double ENERGY_INCREASE_RATE = 5;
+    private float ATK_INCREASE_RATE = 0.1f;
+    private float DEF_INCREASE_RATE = 0.1f;
+    private float HEAL_INCREASE_RATE = 0.05f;
+    private float ENERGY_INCREASE_RATE = 5;
+    private void Awake(){
+        ATK_INCREASE_RATE = 0.1f;
+        DEF_INCREASE_RATE = 0.1f;
+        HEAL_INCREASE_RATE = 0.05f;
+        ENERGY_INCREASE_RATE = 5;
+    }
     public Monster(string ID,int atk,MonsterSO monsterSO){
         this.ATK = atk;
         this.ID = ID;

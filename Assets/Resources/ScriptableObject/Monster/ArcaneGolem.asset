@@ -15,10 +15,10 @@ MonoBehaviour:
   monsterName: ArcaneGolem
   ID: 1003
   level: 1
-  type: 1050
+  type: 3
   job: 3
-  star: 3
-  baseHP: 4
+  star: 4
+  baseHP: 1050
   baseATK: 100
   baseDEF: 70
   baseSpeed: 60

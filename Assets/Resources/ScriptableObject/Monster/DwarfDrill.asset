@@ -15,10 +15,10 @@ MonoBehaviour:
   monsterName: DwarfDrill
   ID: 1011
   level: 1
-  type: 1000
-  job: 5
-  star: 2
-  baseHP: 4
+  type: 5
+  job: 2
+  star: 4
+  baseHP: 1000
   baseATK: 100
   baseDEF: 30
   baseSpeed: 49

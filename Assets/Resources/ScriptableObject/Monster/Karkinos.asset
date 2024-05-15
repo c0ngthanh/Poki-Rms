@@ -15,10 +15,10 @@ MonoBehaviour:
   monsterName: Karkinos
   ID: 1014
   level: 1
-  type: 960
+  type: 2
   job: 2
-  star: 2
-  baseHP: 4
+  star: 4
+  baseHP: 960
   baseATK: 100
   baseDEF: 15
   baseSpeed: 50

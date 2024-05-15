@@ -15,10 +15,10 @@ MonoBehaviour:
   monsterName: TheFallen
   ID: 1017
   level: 1
-  type: 1600
-  job: 5
-  star: 3
-  baseHP: 5
+  type: 5
+  job: 3
+  star: 5
+  baseHP: 1600
   baseATK: 120
   baseDEF: 80
   baseSpeed: 75

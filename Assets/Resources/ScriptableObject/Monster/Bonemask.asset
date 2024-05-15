@@ -15,10 +15,10 @@ MonoBehaviour:
   monsterName: Bonemask
   ID: 1004
   level: 1
-  type: 800
-  job: 4
-  star: 1
-  baseHP: 4
+  type: 4
+  job: 1
+  star: 4
+  baseHP: 800
   baseATK: 100
   baseDEF: 60
   baseSpeed: 73

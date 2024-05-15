@@ -15,10 +15,10 @@ MonoBehaviour:
   monsterName: QueenShaccad
   ID: 1015
   level: 1
-  type: 1800
-  job: 3
-  star: 1
-  baseHP: 5
+  type: 3
+  job: 1
+  star: 5
+  baseHP: 1800
   baseATK: 150
   baseDEF: 70
   baseSpeed: 100

@@ -15,10 +15,10 @@ MonoBehaviour:
   monsterName: ClockworkPrototype
   ID: 1007
   level: 1
-  type: 1020
+  type: 1
   job: 1
-  star: 1
-  baseHP: 4
+  star: 4
+  baseHP: 1020
   baseATK: 100
   baseDEF: 60
   baseSpeed: 75

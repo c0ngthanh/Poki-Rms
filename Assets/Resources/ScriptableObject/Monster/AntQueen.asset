@@ -15,10 +15,10 @@ MonoBehaviour:
   monsterName: AntQueen
   ID: 1002
   level: 1
-  type: 900
+  type: 2
   job: 2
-  star: 2
-  baseHP: 4
+  star: 4
+  baseHP: 900
   baseATK: 110
   baseDEF: 75
   baseSpeed: 65

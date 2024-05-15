@@ -142,7 +142,7 @@ public class BattleHandler : MonoBehaviour
         }
         AttackedMonster.SetMonsterStats(Monster.MonsterStats.HP, AttackedMonster.GetMonsterHP() - attackDame);
         print(attackDame);
-        GameManager.instance.ShowDamage(AttackedMonster.transform.position, attackDame.ToString(), AttackMonster.GetMonsterType(), isCrit, isElement);
+        GameManager.instance.ShowDamage(AttackedMonster.transform.position, ((int)attackDame).ToString(), AttackMonster.GetMonsterType(), isCrit, isElement);
         // GameManager.instance.UpdateBattleUI();
     }
     public void PlayVFX(Transform attackedMonster)

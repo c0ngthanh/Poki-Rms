@@ -15,10 +15,10 @@ MonoBehaviour:
   monsterName: HuangLong
   ID: 1012
   level: 1
-  type: 890
-  job: 6
-  star: 3
-  baseHP: 4
+  type: 6
+  job: 3
+  star: 4
+  baseHP: 890
   baseATK: 100
   baseDEF: 25
   baseSpeed: 60

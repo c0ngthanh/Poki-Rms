@@ -15,10 +15,10 @@ MonoBehaviour:
   monsterName: Thanatos
   ID: 1016
   level: 1
-  type: 1500
-  job: 4
-  star: 2
-  baseHP: 5
+  type: 4
+  job: 2
+  star: 5
+  baseHP: 1500
   baseATK: 120
   baseDEF: 200
   baseSpeed: 70
