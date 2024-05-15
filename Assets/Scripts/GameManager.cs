@@ -12,6 +12,7 @@ public class GameManager : MonoBehaviour
     public Match3 match3;
     public BattleHandler battleHandler;
     public UI ui;
+    public DamageCanvas damageCanvas;
     private void Awake()
     {
         instance = this;
@@ -22,6 +23,12 @@ public class GameManager : MonoBehaviour
         // battleHandler.GetMonster2().OnMonsterStatsChange += UpdateUI;
         battleHandler.SetUpBattle();
         ui.SetUp();
+        damageCanvas = Resources.Load<DamageCanvas>("Prefab/UI/FloatDamageCanvas");
+    }
+    public void ShowDamage(Vector3 pos,string damageValue, Monster.MonsterType type,bool isCrit, bool isElement){
+        DamageCanvas temp = Instantiate(damageCanvas);
+        temp.transform.position = pos;
+        temp.ShowDamage(damageValue,type,isCrit,isElement);
     }
 
     public void UpdateUI(object sender, Monster.MonsterStatsChangeEventArgs e)

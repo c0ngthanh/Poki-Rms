@@ -127,6 +127,7 @@ public class BattleHandler : MonoBehaviour
     }
     public void BattleDamage(Monster AttackMonster, Monster AttackedMonster)
     {
+        bool isCrit = false;
         float effectiveBonus = GameConfig.baseCounterBonus;
         if (isElement)
         {
@@ -136,9 +137,12 @@ public class BattleHandler : MonoBehaviour
         float attackDame = AttackMonster.GetMonsterATK() * effectiveBonus * (1 - (monsterDEF / (monsterDEF + 100f)));
         if (AttackMonster.GetMonsterCritRate() > UnityEngine.Random.Range(0, 100))
         {
+            isCrit = true;
             attackDame = attackDame * AttackedMonster.GetMonsterCritDame() / 100;
         }
         AttackedMonster.SetMonsterStats(Monster.MonsterStats.HP, AttackedMonster.GetMonsterHP() - attackDame);
+        print(attackDame);
+        GameManager.instance.ShowDamage(AttackedMonster.transform.position, attackDame.ToString(), AttackMonster.GetMonsterType(), isCrit, isElement);
         // GameManager.instance.UpdateBattleUI();
     }
     public void PlayVFX(Transform attackedMonster)
