@@ -9,10 +9,10 @@ using UnityEngine.TextCore.Text;
 public class BattleHandler : MonoBehaviour
 {
     [SerializeField] private GameObject VFXEffect;
-    [SerializeField] private GameObject playerPrefab;
-    [SerializeField] private GameObject enemyPrefab;
     [SerializeField] private Transform p1Stand;
     [SerializeField] private Transform p2Stand;
+    private GameObject enemyPrefab;
+    private GameObject playerPrefab;
     //Private variables
     private CharacterBattle player1Character;
     private CharacterBattle player2Character;
@@ -25,13 +25,17 @@ public class BattleHandler : MonoBehaviour
         WaitingForPlayer,
         Busy,
     }
-    public void SetUpBattle()
+    public void SetUpBattle(Monster monster1,Monster monster2)
     {
-        player1Character = SpawnCharacter(true);
-        player2Character = SpawnCharacter(false);
+        playerPrefab = Resources.Load<GameObject>("Prefab/Monster/" + monster1.GetMonsterSO().name);
+        enemyPrefab = Resources.Load<GameObject>("Prefab/Monster/" + monster2.GetMonsterSO().name);
+        
+        
+        player1Character = SpawnCharacter(true,monster1);
+        player2Character = SpawnCharacter(false,monster2);
         SetActiveCharacter(player1Character);
-        player1Character.GetComponent<Monster>().OnMonsterStatsChange += GameManager.instance.UpdateUI;
-        player2Character.GetComponent<Monster>().OnMonsterStatsChange += GameManager.instance.UpdateUI;
+        player1Character.GetComponent<Monster>().OnMonsterStatsChange += BattleManager.instance.UpdateUI;
+        player2Character.GetComponent<Monster>().OnMonsterStatsChange += BattleManager.instance.UpdateUI;
         SetUpMonster();
     }
     public void BattleHandlerUpdate()
@@ -45,7 +49,7 @@ public class BattleHandler : MonoBehaviour
                 {
                     player1Character.GetComponent<Monster>().GetSkillBase().Activate(player2Character.gameObject, () =>
                 {
-                    GameManager.instance.ShowUIAfterAttack();
+                    BattleManager.instance.ShowUIAfterAttack();
                     ChooseNextActiveCharacter();
                     player1Character.GetComponent<Monster>().SetMonsterStats(Monster.MonsterStats.ENERGY,0);
                 });
@@ -54,7 +58,7 @@ public class BattleHandler : MonoBehaviour
                 {
                     player2Character.GetComponent<Monster>().GetSkillBase().Activate(player1Character.gameObject, () =>
                 {
-                    GameManager.instance.ShowUIAfterAttack();
+                    BattleManager.instance.ShowUIAfterAttack();
                     ChooseNextActiveCharacter();
                     player2Character.GetComponent<Monster>().SetMonsterStats(Monster.MonsterStats.ENERGY,0);
                 });
@@ -66,7 +70,7 @@ public class BattleHandler : MonoBehaviour
                 {
                     player1Character.Attack(player2Character, () =>
                     {
-                        GameManager.instance.ShowUIAfterAttack();
+                        BattleManager.instance.ShowUIAfterAttack();
                         ChooseNextActiveCharacter();
                     });
                 }
@@ -74,7 +78,7 @@ public class BattleHandler : MonoBehaviour
                 {
                     player2Character.Attack(player1Character, () =>
                     {
-                        GameManager.instance.ShowUIAfterAttack();
+                        BattleManager.instance.ShowUIAfterAttack();
                         ChooseNextActiveCharacter();
                     });
                 }
@@ -94,7 +98,7 @@ public class BattleHandler : MonoBehaviour
             state = State.WaitingForPlayer;
         }
     }
-    private CharacterBattle SpawnCharacter(bool isPlayerTeam)
+    private CharacterBattle SpawnCharacter(bool isPlayerTeam, Monster monster)
     {
         Vector2 position;
         GameObject characterGO;
@@ -109,6 +113,7 @@ public class BattleHandler : MonoBehaviour
             position = p2Stand.position;
             characterGO = Instantiate(enemyPrefab, position, Quaternion.identity);
         }
+        characterGO.GetComponent<Monster>().SetMonsterStatFromData(monster);
         CharacterBattle characterBattle = characterGO.GetComponent<CharacterBattle>();
         return characterBattle;
     }
@@ -141,9 +146,11 @@ public class BattleHandler : MonoBehaviour
             attackDame = attackDame * AttackedMonster.GetMonsterCritDame() / 100;
         }
         AttackedMonster.SetMonsterStats(Monster.MonsterStats.HP, AttackedMonster.GetMonsterHP() - attackDame);
-        print(attackDame);
-        GameManager.instance.ShowDamage(AttackedMonster.transform.position, ((int)attackDame).ToString(), AttackMonster.GetMonsterType(), isCrit, isElement);
-        // GameManager.instance.UpdateBattleUI();
+        BattleManager.instance.ShowDamage(AttackedMonster.transform.position, ((int)attackDame).ToString(), AttackMonster.GetMonsterType(), isCrit, isElement);
+        if(AttackedMonster.GetMonsterHP() <= 0){
+            AttackedMonster.GetComponent<CharacterBattle>().isDead = true;
+        }
+        BattleManager.instance.TrySetBattleState();
     }
     public void PlayVFX(Transform attackedMonster)
     {
@@ -215,5 +222,13 @@ public class BattleHandler : MonoBehaviour
     public void SetElement(bool element)
     {
         this.isElement = element;
+    }
+    public BattleState GetBattleState(){
+        if(player1Character.isDead){
+            return BattleState.Lose;
+        }else if(player2Character.isDead){
+            return BattleState.Win;
+        }
+        return BattleState.Ingame;
     }
 }

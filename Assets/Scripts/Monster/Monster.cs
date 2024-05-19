@@ -41,12 +41,12 @@ public class Monster : MonoBehaviour
     }
     public enum MonsterType
     {
-        Fire =1,
-        Water=2,
-        Grass=3,
-        Electric=4,
-        Light=5,
-        Dark=6
+        Fire = 1,
+        Water = 2,
+        Grass = 3,
+        Electric = 4,
+        Light = 5,
+        Dark = 6
     }
     //Prototype
     [SerializeField] private MonsterSO monsterSO;
@@ -83,33 +83,64 @@ public class Monster : MonoBehaviour
     private float DEF_INCREASE_RATE = 0.1f;
     private float HEAL_INCREASE_RATE = 0.05f;
     private float ENERGY_INCREASE_RATE = 5;
-    private void Awake(){
+    private void Awake()
+    {
         ATK_INCREASE_RATE = 0.1f;
         DEF_INCREASE_RATE = 0.1f;
         HEAL_INCREASE_RATE = 0.05f;
         ENERGY_INCREASE_RATE = 5;
     }
-    public Monster(string ID,int atk,MonsterSO monsterSO){
-        this.ATK = atk;
+    public Monster(string ID, int atk, MonsterSO monsterSO, int def,
+        int maxEnergy,
+        int speed,
+        int ER,
+        int HR,
+        int critRate,
+        int critDame,
+        int level)
+    {
         this.ID = ID;
-        this.monsterSO =monsterSO;
+        this.monsterSO = monsterSO;
+        this.ATK = atk;
+        this.DEF = def;
+        this.maxEnergy = maxEnergy;
+        this.speed = speed;
+        this.ER = ER;
+        this.HR = HR;
+        this.critRate = critRate;
+        this.critDame = critDame;
+        this.level = level;
+    }
+    public void  SetMonsterStatFromData(Monster monster)
+    {
+        ID = monster.GetMonsterSO().ID;
+        monsterSO = monster.GetMonsterSO();
+        ATK = monster.GetMonsterStat(MonsterStats.ATK);
+        DEF = monster.GetMonsterStat(MonsterStats.DEF);
+        maxEnergy = monster.GetMonsterStat(MonsterStats.MAXENERGY);
+        speed = monster.GetMonsterStat(MonsterStats.SPEED);
+        ER = monster.GetMonsterStat(MonsterStats.ER);
+        HR = monster.GetMonsterStat(MonsterStats.HR);
+        critRate = monster.GetMonsterStat(MonsterStats.CRITRATE);
+        critDame = monster.GetMonsterStat(MonsterStats.CRITDAME);
+        level = monster.GetMonsterStat(MonsterStats.LEVEL);
     }
     private void SetUpBaseStats()
     {
         baseLevel = monsterSO.level;
         baseStar = monsterSO.star;
         job = monsterSO.job;
-        baseHP= monsterSO.baseHP;
-        ID= monsterSO.ID;
-        type= monsterSO.type;
-        baseATK= monsterSO.baseATK;
-        baseDEF= monsterSO.baseDEF;
-        baseSpeed= monsterSO.baseSpeed;
-        baseER= monsterSO.baseER;
-        baseEnergy= monsterSO.baseEnergy;
-        baseHR= monsterSO.baseHR;
-        baseCritRate= monsterSO.baseCritRate;
-        baseCritDame= monsterSO.baseCritDame;
+        baseHP = monsterSO.baseHP;
+        ID = monsterSO.ID;
+        type = monsterSO.type;
+        baseATK = monsterSO.baseATK;
+        baseDEF = monsterSO.baseDEF;
+        baseSpeed = monsterSO.baseSpeed;
+        baseER = monsterSO.baseER;
+        baseEnergy = monsterSO.baseEnergy;
+        baseHR = monsterSO.baseHR;
+        baseCritRate = monsterSO.baseCritRate;
+        baseCritDame = monsterSO.baseCritDame;
     }
     public void SetupMonster()
     {
@@ -177,7 +208,7 @@ public class Monster : MonoBehaviour
                     }
                     break;
                 case GemSO.Type.ELEMENT:
-                    GameManager.instance.battleHandler.SetElement(true);
+                    BattleManager.instance.battleHandler.SetElement(true);
                     break;
             }
         }
@@ -271,13 +302,16 @@ public class Monster : MonoBehaviour
     {
         return type;
     }
-    public MonsterSO GetMonsterSO(){
+    public MonsterSO GetMonsterSO()
+    {
         return monsterSO;
     }
-    public void SetMonsterSO(MonsterSO value){
+    public void SetMonsterSO(MonsterSO value)
+    {
         monsterSO = value;
     }
-    public int GetMonsterStat(MonsterStats statsType){
+    public int GetMonsterStat(MonsterStats statsType)
+    {
         switch (statsType)
         {
             case MonsterStats.HP: return HP;

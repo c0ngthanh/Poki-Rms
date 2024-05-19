@@ -1,10 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
 [CustomEditor(typeof(SaveLoadSystem))]
-public class SaveManagerEditor : UnityEditor.Editor
+public class SaveManagerEditor : Editor
 {
     public override void OnInspectorGUI()
     {

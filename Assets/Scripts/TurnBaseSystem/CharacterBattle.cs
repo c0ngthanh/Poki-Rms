@@ -10,6 +10,7 @@ public class CharacterBattle : MonoBehaviour
     private State state;
     private Vector3 slideTargetPosition;
     private Action onSlideComplete;
+    public bool isDead=false;
 
     private enum State
     {
@@ -59,8 +60,8 @@ public class CharacterBattle : MonoBehaviour
             if (eventObject.animationState.name == "Attack")
             {
                 characterBattle.GetComponent<CharacterBase>().PlayDamageAnimation();
-                GameManager.instance.battleHandler.PlayVFX(characterBattle.transform);
-                GameManager.instance.battleHandler.BattleDamage(transform.GetComponent<Monster>(), characterBattle.GetComponent<Monster>());
+                BattleManager.instance.battleHandler.PlayVFX(characterBattle.transform);
+                BattleManager.instance.battleHandler.BattleDamage(transform.GetComponent<Monster>(), characterBattle.GetComponent<Monster>());
                 // Slide back to start position
                 SlideToPosition(startingPosition, () =>
                 {
@@ -68,7 +69,7 @@ public class CharacterBattle : MonoBehaviour
                     // Attack completed
                     onAttackComplete();
                     characterBase.RemoveCompleteAction(OnAttackCompleteEventHandler);
-                    GameManager.instance.battleHandler.SetElement(false);
+                    BattleManager.instance.battleHandler.SetElement(false);
                 });
             }
         }
@@ -95,8 +96,8 @@ public class CharacterBattle : MonoBehaviour
                 if (eventObject.animationState.name == "Skill")
                 {
                     characterBattle.GetComponent<CharacterBase>().PlayDamageAnimation();
-                    GameManager.instance.battleHandler.PlayVFX(characterBattle.transform);
-                    GameManager.instance.battleHandler.BattleDamage(transform.GetComponent<Monster>(), characterBattle.GetComponent<Monster>());
+                    BattleManager.instance.battleHandler.PlayVFX(characterBattle.transform);
+                    BattleManager.instance.battleHandler.BattleDamage(transform.GetComponent<Monster>(), characterBattle.GetComponent<Monster>());
                     // Slide back to start position
                     SlideToPosition(startingPosition, () =>
                     {

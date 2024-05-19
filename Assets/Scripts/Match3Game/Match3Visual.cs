@@ -215,7 +215,7 @@ public class Match3Visual : MonoBehaviour
                 {
                     if (!isFirstSetup)
                     {
-                        GameManager.instance.Battle();
+                        BattleManager.instance.Battle();
                     }
                     isFirstSetup = false;
                     TrySetStateWaitingForUser();

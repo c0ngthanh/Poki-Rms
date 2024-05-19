@@ -11,23 +11,23 @@ public class SkillUI : MonoBehaviour
     // [SerializeField] GameObject P2Skill;
     public void SetUp()
     {
-        P1Monster = GameManager.instance.battleHandler.GetCharacterBattle1().GetComponent<Monster>();
+        P1Monster = BattleManager.instance.battleHandler.GetCharacterBattle1().GetComponent<Monster>();
         P1Monster.OnMonsterStatsChange += OnMonsterStatsChange;
         P1Skill.GetComponent<Toggle>().onValueChanged.AddListener((bool value) =>
         {
             P1Monster.SetIsSkill(value);
         });
         // P2Skill.GetComponent<Toggle>().onValueChanged.AddListener((bool value)=>{
-        //     GameManager.instance.battleHandler.GetCharacterBattle2().GetComponent<Monster>().SetIsSkill(value);
+        //     BattleManager.instance.battleHandler.GetCharacterBattle2().GetComponent<Monster>().SetIsSkill(value);
         // });
         // P1Skill.GetComponent<Toggle>().interactable = false;
         // P2Skill.GetComponent<Toggle>().interactable = false;
         // P2Skill.GetComponent<Toggle>().onValueChanged.AddListener((bool value)=>{
-        //     GameManager.instance.battleHandler.GetCharacterBattle2().GetComponent<Monster>().SetIsSkill(value);
+        //     BattleManager.instance.battleHandler.GetCharacterBattle2().GetComponent<Monster>().SetIsSkill(value);
         // });
-        P1Skill.GetComponent<Image>().sprite = GameManager.instance.battleHandler.GetCharacterBattle1().GetComponent<Monster>().GetSkillBase().icon;
+        P1Skill.GetComponent<Image>().sprite = BattleManager.instance.battleHandler.GetCharacterBattle1().GetComponent<Monster>().GetSkillBase().icon;
         SetSkillIteraction(P1Monster.GetMonsterEnergy(),P1Monster.GetMonsterMaxEnergy());
-        // P2Skill.GetComponent<Image>().sprite = GameManager.instance.battleHandler.GetCharacterBattle2().GetComponent<Monster>().GetSkillBase().icon;
+        // P2Skill.GetComponent<Image>().sprite = BattleManager.instance.battleHandler.GetCharacterBattle2().GetComponent<Monster>().GetSkillBase().icon;
     }
 
     private void OnMonsterStatsChange(object sender, Monster.MonsterStatsChangeEventArgs e)

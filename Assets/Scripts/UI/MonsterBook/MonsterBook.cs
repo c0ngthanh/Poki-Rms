@@ -28,7 +28,7 @@ public class MonsterBook : MonoBehaviour
         MonsterBookItem item = Resources.Load<MonsterBookItem>("Prefab/UI/MonsterBookItem");
         monsterInventory = new Inventory(8, item.gameObject);
         playerInventory = new Inventory(8, item.gameObject);
-        foreach (Monster monster in MonsterData.allMonsters)
+        foreach (Monster monster in GameManager.allMonsters)
         {
             MonsterBookItem tempItem = Instantiate(item, monsterList);
             tempItem.LoadSprite(monster);

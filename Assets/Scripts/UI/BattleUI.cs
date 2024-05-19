@@ -20,7 +20,7 @@ public class BattleUI : MonoBehaviour
     [SerializeField] Slider player2EnergySlider;
     public void BattleUIUpdate()
     {
-        GameManager.instance.battleHandler.onBattleComplete += UpdateUI;
+        BattleManager.instance.battleHandler.onBattleComplete += UpdateUI;
     }
 
     private void UpdateUI(object sender, EventArgs e)

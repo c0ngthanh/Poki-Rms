@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -10,17 +11,33 @@ public class DialoguePanel : MonoBehaviour
     public Text dialogueText;
     public Text npcName;
     public Image npcAvatar;
+    public Button acceptBtn;
+    public Button cancelBtn;
+    public NPC npc;
     private string[] dialogue;
     private int index = 0;
     private float wordSpeed = 0.01f;
-    public void SetUp(string[] dialogue, Sprite avatar, string name)
+    public void SetUp(string[] dialogue, Sprite avatar, string name, NPC npc)
     {
+        cancelBtn.onClick.AddListener(Hide);
+        acceptBtn.onClick.AddListener(() => {
+            npc.GetComponent<NPCBehavior>().Action();
+        });
+        acceptBtn.gameObject.SetActive(false);
+        cancelBtn.gameObject.SetActive(false);
         this.dialogue = dialogue;
         npcAvatar.sprite = avatar;
         npcName.text = name;
+        this.npc = npc;
         ZeroText();
         StartCoroutine(Typing());
     }
+    public void Hide()
+    {
+        npc.dialoguePanel = null;
+        Destroy(gameObject);
+    }
+
     public void ZeroText()
     {
         dialogueText.text = "";
@@ -38,6 +55,11 @@ public class DialoguePanel : MonoBehaviour
             index++;
             dialogueText.text = "";
             StartCoroutine(Typing());
+        }else{
+            if(npc.GetComponent<NPCBehavior>().npcType != NPCType.Normal){
+                acceptBtn.gameObject.SetActive(true);
+            }
+            cancelBtn.gameObject.SetActive(true);
         }
     }
     IEnumerator Typing()

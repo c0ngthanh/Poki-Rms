@@ -5,7 +5,7 @@ using UnityEngine;
 public class NPC : MonoBehaviour
 {
     private bool playerisClosed;
-    private DialoguePanel dialoguePanel = null;
+    public DialoguePanel dialoguePanel = null;
     public Sprite npcAvatar;
     public string[] dialogue;
     
@@ -13,7 +13,7 @@ public class NPC : MonoBehaviour
         if(Input.GetKeyDown(KeyCode.E) && playerisClosed){
             if(dialoguePanel == null){
                 dialoguePanel = MainUI.Instance.OpenUI("DialogPanel").GetComponent<DialoguePanel>();  
-                dialoguePanel.SetUp(dialogue, npcAvatar,gameObject.name);
+                dialoguePanel.SetUp(dialogue, npcAvatar,gameObject.name,this);
             }else{
                 dialoguePanel.NextLine();
             }
@@ -31,9 +31,7 @@ public class NPC : MonoBehaviour
         if (collision.CompareTag("Player")) 
         { 
             if(dialoguePanel!=null){
-                Destroy(dialoguePanel.gameObject);
-                dialoguePanel=null;
-                print(dialoguePanel);
+                dialoguePanel.Hide();
             }
             playerisClosed = false; 
         } 

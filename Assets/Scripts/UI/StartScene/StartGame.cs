@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class StartGame : MonoBehaviour
@@ -51,19 +52,27 @@ public class StartGame : MonoBehaviour
         fileSave[] fileSave = FileDataService.GetFileSaves();
         foreach (fileSave item in fileSave)
         {
+            if(item.name == SaveLoadSystem.Instance.tempSaveFile){
+                continue;
+            }
             GameObject tpl = Instantiate(loadPrefab.gameObject,loadGrid.transform);
             Image character = tpl.transform.Find("Character").GetComponent<Image>();
             Text name = tpl.transform.Find("Name").GetComponent<Text>();
             Text date = tpl.transform.Find("Date").GetComponent<Text>();
             name.text = item.name;
             date.text = item.date.ToString();
+            tpl.GetComponent<Button>().onClick.AddListener(() => {
+                SceneManager.LoadScene("2DTopDown");
+                SaveLoadSystem.Instance.LoadFile(item.name); 
+            });
         }
         loadPrefab.gameObject.SetActive(false);
     }
 
     private void StartNewGame()
     {
-        Debug.Log("Start Game");
+        SceneManager.LoadScene("2DTopDown");
+        SaveLoadSystem.Instance.LoadFile(); 
     }
 
     
