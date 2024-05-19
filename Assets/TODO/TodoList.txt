@@ -1,0 +1,11 @@
+Battle Scene
+Tắt skill 2
+làm hàm tính thiệt hại
+Làm animation skill - effect zoom cam
+2D Topdown
+làm town scene
+City Scene
+NPC
+Battle load
+UI
+-Train AI

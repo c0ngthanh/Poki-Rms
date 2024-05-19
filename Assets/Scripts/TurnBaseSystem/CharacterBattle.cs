@@ -10,6 +10,7 @@ public class CharacterBattle : MonoBehaviour
     private State state;
     private Vector3 slideTargetPosition;
     private Action onSlideComplete;
+    public bool isDead=false;
 
     private enum State
     {
@@ -54,27 +55,30 @@ public class CharacterBattle : MonoBehaviour
         Vector3 slideTagretPosition = characterBattle.GetPosition() + (GetPosition() - characterBattle.GetPosition()).normalized * 3f - Vector3.forward;
         Vector3 startingPosition = GetPosition();
         //Slide to target position
+        void OnAttackCompleteEventHandler(string type, EventObject eventObject)
+        {
+            if (eventObject.animationState.name == "Attack")
+            {
+                characterBattle.GetComponent<CharacterBase>().PlayDamageAnimation();
+                BattleManager.instance.battleHandler.PlayVFX(characterBattle.transform);
+                BattleManager.instance.battleHandler.BattleDamage(transform.GetComponent<Monster>(), characterBattle.GetComponent<Monster>());
+                // Slide back to start position
+                SlideToPosition(startingPosition, () =>
+                {
+                    state = State.Idle;
+                    // Attack completed
+                    onAttackComplete();
+                    characterBase.RemoveCompleteAction(OnAttackCompleteEventHandler);
+                    BattleManager.instance.battleHandler.SetElement(false);
+                });
+            }
+        }
         SlideToPosition(slideTagretPosition, () =>
         {
             state = State.Busy;
             //Arrived to target position, attack
             characterBase.PlayAttackAnimation();
-            characterBase.AddNewCompleteAction((string type, EventObject eventObject) =>
-            {
-                if (eventObject.animationState.name == "Attack")
-                {
-                    characterBattle.GetComponent<CharacterBase>().PlayDamageAnimation();
-                    GameManager.instance.battleHandler.PlayVFX(characterBattle.transform);
-                    GameManager.instance.battleHandler.BattleDamage(transform.GetComponent<Monster>(),characterBattle.GetComponent<Monster>());
-                    // Slide back to start position
-                    SlideToPosition(startingPosition, () =>
-                    {
-                        state = State.Idle;
-                        // Attack completed
-                        onAttackComplete();
-                    });
-                }
-            });
+            characterBase.AddNewCompleteAction(OnAttackCompleteEventHandler);
         });
     }
     public void Skill(CharacterBattle characterBattle, Action onAttackComplete)
@@ -92,8 +96,8 @@ public class CharacterBattle : MonoBehaviour
                 if (eventObject.animationState.name == "Skill")
                 {
                     characterBattle.GetComponent<CharacterBase>().PlayDamageAnimation();
-                    GameManager.instance.battleHandler.PlayVFX(characterBattle.transform);
-                    GameManager.instance.battleHandler.BattleDamage(transform.GetComponent<Monster>(),characterBattle.GetComponent<Monster>());
+                    BattleManager.instance.battleHandler.PlayVFX(characterBattle.transform);
+                    BattleManager.instance.battleHandler.BattleDamage(transform.GetComponent<Monster>(), characterBattle.GetComponent<Monster>());
                     // Slide back to start position
                     SlideToPosition(startingPosition, () =>
                     {

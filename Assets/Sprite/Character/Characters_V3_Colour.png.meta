@@ -128,7 +128,13 @@ TextureImporter:
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-      physicsShape: []
+      physicsShape:
+      - - {x: -7, y: 8}
+        - {x: -8, y: 7}
+        - {x: -8, y: -8}
+        - {x: 8, y: -8}
+        - {x: 8, y: 7}
+        - {x: 7, y: 8}
       tessellationDetail: 0
       bones: []
       spriteID: 681f5240e667e4a4f82338c92ce51bac
@@ -3935,9 +3941,9 @@ TextureImporter:
       Characters_V3_Colour_45: -828058503
       Characters_V3_Colour_79: 423409397
       Characters_V3_Colour_9: -415802128
-      Characters_V3_Colour_75: -2093552739
-      Characters_V3_Colour_66: -1165157924
       Characters_V3_Colour_119: 1821360280
+      Characters_V3_Colour_66: -1165157924
+      Characters_V3_Colour_75: -2093552739
       Characters_V3_Colour_16: 1958159617
       Characters_V3_Colour_135: 1282239407
       Characters_V3_Colour_91: 1705122297
@@ -3959,8 +3965,8 @@ TextureImporter:
       Characters_V3_Colour_133: -2031970794
       Characters_V3_Colour_101: 742749650
       Characters_V3_Colour_83: 1725010777
-      Characters_V3_Colour_106: -459448080
       Characters_V3_Colour_132: -224723137
+      Characters_V3_Colour_106: -459448080
       Characters_V3_Colour_7: -1277933921
       Characters_V3_Colour_139: 1210210073
       Characters_V3_Colour_108: 585044964
@@ -4037,10 +4043,10 @@ TextureImporter:
       Characters_V3_Colour_56: 1061139366
       Characters_V3_Colour_68: 1525393875
       Characters_V3_Colour_24: -866262054
-      Characters_V3_Colour_94: 158465018
       Characters_V3_Colour_103: 1424715779
-      Characters_V3_Colour_141: -774857744
+      Characters_V3_Colour_94: 158465018
       Characters_V3_Colour_147: 1906269227
+      Characters_V3_Colour_141: -774857744
       Characters_V3_Colour_59: 313680372
       Characters_V3_Colour_34: -716703585
       Characters_V3_Colour_73: -80973009
