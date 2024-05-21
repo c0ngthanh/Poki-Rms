@@ -37,6 +37,8 @@ public class BattleHandler : MonoBehaviour
         player1Character.GetComponent<Monster>().OnMonsterStatsChange += BattleManager.instance.UpdateUI;
         player2Character.GetComponent<Monster>().OnMonsterStatsChange += BattleManager.instance.UpdateUI;
         SetUpMonster();
+        player1Character.GetComponent<Monster>().SetMonsterStatFromData(monster1);
+        player2Character.GetComponent<Monster>().SetMonsterStatFromData(monster2);
     }
     public void BattleHandlerUpdate()
     {
@@ -113,7 +115,7 @@ public class BattleHandler : MonoBehaviour
             position = p2Stand.position;
             characterGO = Instantiate(enemyPrefab, position, Quaternion.identity);
         }
-        characterGO.GetComponent<Monster>().SetMonsterStatFromData(monster);
+        // characterGO.GetComponent<Monster>().SetMonsterStatFromData(monster);
         CharacterBattle characterBattle = characterGO.GetComponent<CharacterBattle>();
         return characterBattle;
     }

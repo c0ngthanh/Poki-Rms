@@ -8,6 +8,7 @@ public class PlayerController : MonoBehaviour
 {
     public static PlayerController instance;
     private List<Monster> monstersList;
+    public Monster activeMonster = null;
     [SerializeField] private float playerSpeed;
     [SerializeField] private bool isMoving;
     [SerializeField] private Vector2 input;

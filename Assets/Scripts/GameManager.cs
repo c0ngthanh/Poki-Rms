@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -21,6 +22,8 @@ public class GameManager : MonoBehaviour
     public void SetUpBattle(Monster monster1, Monster monster2){
         this.monster1 = monster1;
         this.monster2 = monster2;
+        SaveLoadSystem.Instance.Save(SaveLoadSystem.Instance.tempSaveFile);
+        SceneManager.LoadScene("BattleScene");
     }
     public void SetBattleManager(BattleManager battleManager){
         this.battleManager = battleManager;

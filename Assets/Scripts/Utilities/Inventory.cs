@@ -86,6 +86,12 @@ public class Inventory
             return;
         }
     }
+    public void Add(ActiveMonsterItem item)
+    {
+        itemObjectList.Add(item.gameObject);
+        numberOfPages = Math.Ceiling(itemObjectList.Count / this.itemPerPage);
+        item.gameObject.SetActive(false);
+    }
     public void Add(MonsterBookItem item)
     {
         itemObjectList.Add(item.gameObject);

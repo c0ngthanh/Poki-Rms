@@ -115,6 +115,7 @@ public class Monster : MonoBehaviour
     {
         ID = monster.GetMonsterSO().ID;
         monsterSO = monster.GetMonsterSO();
+        HP = monster.GetMonsterStat(MonsterStats.HP);
         ATK = monster.GetMonsterStat(MonsterStats.ATK);
         DEF = monster.GetMonsterStat(MonsterStats.DEF);
         maxEnergy = monster.GetMonsterStat(MonsterStats.MAXENERGY);
@@ -125,6 +126,9 @@ public class Monster : MonoBehaviour
         critDame = monster.GetMonsterStat(MonsterStats.CRITDAME);
         level = monster.GetMonsterStat(MonsterStats.LEVEL);
     }
+    // private void Start(){
+    //     SetupMonster();
+    // }
     private void SetUpBaseStats()
     {
         baseLevel = monsterSO.level;
@@ -235,7 +239,7 @@ public class Monster : MonoBehaviour
         }
         UpdateMonsterNotification();
     }
-    private void UpdateMonsterNotification()
+    public void UpdateMonsterNotification()
     {
         OnMonsterStatsChange?.Invoke(this, new MonsterStatsChangeEventArgs
         {
@@ -309,6 +313,29 @@ public class Monster : MonoBehaviour
     public void SetMonsterSO(MonsterSO value)
     {
         monsterSO = value;
+    }
+    public void SetMonsterStatWithLevel(int level){
+        if(job == MonsterJob.DPS){
+            ATK += (int)(baseATK * level * 0.2);
+            speed += (int)(baseSpeed * level * 0.2);
+            critRate += (int)(baseCritRate * level * 0.2);
+            critDame += (int)(baseCritDame * level * 0.2);
+        }else{
+            ATK += (int)(baseATK * level * 0.1);
+            speed += (int)(baseSpeed * level * 0.1);
+        }
+        if(job == MonsterJob.Tanker){
+            HP += (int)(baseHP * level * 0.2);
+            DEF += (int)(baseDEF * level * 0.2);
+            HR += (int)(baseHR * level * 0.2);
+        }else{
+            HP += (int)(baseHP * level * 0.1);
+            DEF += (int)(baseDEF * level * 0.1);
+        }
+        if(job == MonsterJob.Supporter){
+            ER += (int)(baseER * level * 0.5);
+        }
+        this.level = level;
     }
     public int GetMonsterStat(MonsterStats statsType)
     {
