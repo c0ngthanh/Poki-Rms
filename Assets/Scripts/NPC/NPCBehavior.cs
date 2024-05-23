@@ -32,7 +32,10 @@ public class NPCBehavior : MonoBehaviour
 
     private void Duel()
     {
-        Debug.Log("Hmm");
+        if(PlayerController.instance.activeMonster == null){
+            NotificationText.ShowNotification("You dont have activeMonster");
+            return;
+        }
         Monster temp = monster;
         temp.SetMonsterStatWithLevel(level);
         GameManager.Instance.SetUpBattle(PlayerController.instance.activeMonster,temp);
@@ -41,7 +44,7 @@ public class NPCBehavior : MonoBehaviour
     private void Buy(){
         if(npcItem == Item.Ticket){
             if(PlayerController.instance.coin >= price){
-                PlayerController.instance.coin -= price;
+                PlayerController.instance.SetCoin(PlayerController.instance.coin-price);
                 PlayerController.instance.ticket += 1;
                 NotificationText.ShowNotification("Buy 1 ticket successfully with 100 coins");
             }else{

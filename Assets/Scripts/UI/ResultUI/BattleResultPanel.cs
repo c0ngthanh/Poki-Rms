@@ -16,6 +16,7 @@ public class BattleResultPanel : MonoBehaviour
     public GameObject lose;
     public GameObject win;
     public Button backButton;
+    public Image monsterImage;
     // Start is called before the first frame update
     private void Awake(){
         backButton.onClick.AddListener(BackToMainScene);
@@ -36,9 +37,15 @@ public class BattleResultPanel : MonoBehaviour
             win.SetActive(false);
             resultText.text = "Lose";
         }else{
+            GameManager.Instance.battleReward = new BattleReward(1,200);
             lose.SetActive(false);
             win.SetActive(true);
             resultText.text = "Win";
+            monsterImage.sprite = Resources.Load<Sprite>("MonsterUI/"+GameManager.Instance.monster1.GetMonsterSO().name);
+            monsterImage.SetNativeSize();
+            // Debug.Log(image.GetComponent<RectTransform>().rect.width);
+            float scale = monsterImage.GetComponent<RectTransform>().rect.width/monsterImage.GetComponent<RectTransform>().rect.height;
+            monsterImage.GetComponent<RectTransform>().sizeDelta = new Vector2(120*scale,120);
         }
     }
     public void SetUp()

@@ -97,7 +97,7 @@ public class Monster : MonoBehaviour
         int HR,
         int critRate,
         int critDame,
-        int level)
+        int level,int hp,int maxHP)
     {
         this.ID = ID;
         this.monsterSO = monsterSO;
@@ -110,6 +110,8 @@ public class Monster : MonoBehaviour
         this.critRate = critRate;
         this.critDame = critDame;
         this.level = level;
+        this.HP = hp;
+        this.maxHP = maxHP;
     }
     public void  SetMonsterStatFromData(Monster monster)
     {
@@ -364,5 +366,30 @@ public class Monster : MonoBehaviour
             case MonsterStats.TYPE: return (int)this.type;
         }
         return -1;
+    }
+    public void LevelUp(int value){
+        if(job == MonsterJob.DPS){
+            ATK += (int)(baseATK * level * 0.2);
+            speed += (int)(baseSpeed * level * 0.2);
+            critRate += (int)(baseCritRate * level * 0.2);
+            critDame += (int)(baseCritDame * level * 0.2);
+        }else{
+            ATK += (int)(baseATK * level * 0.1);
+            speed += (int)(baseSpeed * level * 0.1);
+        }
+        if(job == MonsterJob.Tanker){
+            maxHP += (int)(baseHP * level * 0.2);
+            HP += (int)(baseHP * level * 0.2);
+            DEF += (int)(baseDEF * level * 0.2);
+            HR += (int)(baseHR * level * 0.2);
+        }else{
+            maxHP += (int)(baseHP * level * 0.1);
+            HP += (int)(baseHP * level * 0.1);
+            DEF += (int)(baseDEF * level * 0.1);
+        }
+        if(job == MonsterJob.Supporter){
+            ER += (int)(baseER * level * 0.5);
+        }
+        this.level += value;
     }
 }

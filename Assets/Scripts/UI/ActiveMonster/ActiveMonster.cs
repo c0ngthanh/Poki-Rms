@@ -11,20 +11,23 @@ public class ActiveMonster : MonoBehaviour
     public TMP_Text monsterName;
     public TMP_Text monsterLevel;
     private Monster monster;
-    private ActiveMonsterPanel panel;
+    public ActiveMonsterPanel panel = null;
 
     // Start is called before the first frame update
     void Start()
     {
-        panel = Resources.Load<ActiveMonsterPanel>("Prefab/UI/ActiveMonsterPanel");
         GetComponent<Button>().onClick.AddListener(()=>{
-            Instantiate(panel,MainUI.Instance.UIRoot.transform);
+            panel = Instantiate(Resources.Load<ActiveMonsterPanel>("Prefab/UI/ActiveMonsterPanel"),MainUI.Instance.UIRoot.transform);
         });
         if(PlayerController.instance.activeMonster == null){
             Hide();
         }else{
             Show();
         }
+    }
+    public void HidePanel(){
+        Destroy(panel.gameObject);
+        panel = null;
     }
     public void Hide(){
         monsterImage.gameObject.SetActive(false);

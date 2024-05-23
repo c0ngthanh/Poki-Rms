@@ -15,6 +15,7 @@ public class ActiveMonsterItem : ItemBase
     {
         GetComponent<Button>().onClick.AddListener(() => {
             PlayerController.instance.SetActiveMonster(obj);
+            MainUI.Instance.activeMonster.HidePanel();
         });
         MonsterSO monsterSO = obj.GetMonsterSO();
         monsterImage.sprite = Resources.Load<Sprite>($"MonsterUI/"+monsterSO.monsterName);

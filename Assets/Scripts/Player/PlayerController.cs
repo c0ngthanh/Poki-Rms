@@ -13,8 +13,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private bool isMoving;
     [SerializeField] private Vector2 input;
     private Animator animationController;
-    public int coin = 500;
-    public int ticket =0;
+    public int coin;
+    public int ticket;
     // Start is called before the first frame update
     void Awake(){
         instance = this;
@@ -76,6 +76,10 @@ public class PlayerController : MonoBehaviour
     }
     public void SetCoin(int value){
         coin = value;
+        MainUI.Instance.coin.SetCoinUI();
+    }
+    public void AddCoin(int value){
+        SetCoin(coin+value);
     }
     public void SetTicket(int value){
         ticket = value;

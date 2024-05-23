@@ -12,6 +12,8 @@ public class GameData
     {
         public string id;
         public int atk;
+        public int hp;
+        public int maxHP;
         public int def;
         public int maxEnergy;
         public int speed;
@@ -22,6 +24,8 @@ public class GameData
         public int level;
         public MonsterDataSave(Monster monster)
         {
+            hp = monster.GetMonsterStat(Monster.MonsterStats.HP);
+            maxHP = monster.GetMaxHP();
             id = monster.GetMonsterSO().ID;
             atk = monster.GetMonsterStat(Monster.MonsterStats.ATK);
             def = monster.GetMonsterStat(Monster.MonsterStats.DEF);
@@ -76,31 +80,36 @@ public class SaveLoadSystem : MonoBehaviour
     private bool isFirstLoad = true;
     private void Awake()
     {
+        if (Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(this.gameObject);
+            SceneManager.sceneLoaded += OnSceneLoaded;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
         dataService = new FileDataService(new JsonSerializer());
-        Instance = this;
-        DontDestroyOnLoad(this.gameObject);
-        SceneManager.sceneLoaded += OnSceneLoaded;
     }
 
     private void OnSceneLoaded(Scene arg0, LoadSceneMode arg1)
     {
         if (GameObject.FindGameObjectWithTag("Player") && arg0.name == "2DTopDown")
         {
+            Debug.Log(gameData.Name);
             player = PlayerController.instance;
             LoadMonster();
         }
+        GameManager.Instance.OnSceneLoaded(arg0,arg1);
     }
-
-    public void LoadFile(string filename = null)
+    public void LoadNewGame(string filename = null)
     {
-        if (filename == null)
-        {
-            gameData = new GameData();
-        }
-        else
-        {
-            Load(filename);
-        }
+        gameData = new GameData();
+    }
+    public void LoadFile(string filename)
+    {
+        Load(filename);
     }
     public void Save()
     {
@@ -145,7 +154,7 @@ public class SaveLoadSystem : MonoBehaviour
                         data.HR,
                         data.critRate,
                         data.critDame,
-                        data.level);
+                        data.level,data.hp,data.maxHP);
                     Monster temp = monster;
                     temp.SetMonsterStatFromData(temp1);
                     player.GetMonstersList().Add(temp);

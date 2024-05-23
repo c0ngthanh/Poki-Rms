@@ -1,18 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class Coin : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
+    public TMP_Text coinValue;
+    private void Start(){
+        SetCoinUI();
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+    public void SetCoinUI(){
+        coinValue.text = PlayerController.instance.coin.ToString();
     }
 }

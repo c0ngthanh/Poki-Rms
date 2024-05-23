@@ -72,7 +72,7 @@ public class StartGame : MonoBehaviour
     private void StartNewGame()
     {
         SceneManager.LoadScene("2DTopDown");
-        SaveLoadSystem.Instance.LoadFile(); 
+        SaveLoadSystem.Instance.LoadNewGame(); 
     }
 
     

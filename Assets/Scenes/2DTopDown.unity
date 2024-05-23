@@ -398,8 +398,8 @@ MonoBehaviour:
   npcType: 2
   npcItem: 0
   price: 0
-  monster: {fileID: -2645957609828496947, guid: 76a9fec1c4ea4fc478b72e7e51c0426a, type: 3}
-  level: 10
+  monster: {fileID: -4037036314831355828, guid: b6a4dff51baf70745bacd0ca6f67a47c, type: 3}
+  level: 1
 --- !u!114 &483968617
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -768,6 +768,7 @@ GameObject:
   - component: {fileID: 521909913}
   - component: {fileID: 521909915}
   - component: {fileID: 521909914}
+  - component: {fileID: 521909916}
   m_Layer: 5
   m_Name: Coin
   m_TagString: Untagged
@@ -835,6 +836,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 521909912}
   m_CullTransparentMesh: 1
+--- !u!114 &521909916
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 521909912}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0e839b82229110841ae3bbf312ae0788, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  coinValue: {fileID: 512382147}
 --- !u!1 &552275055
 GameObject:
   m_ObjectHideFlags: 0
@@ -10471,7 +10485,9 @@ MonoBehaviour:
   UIRoot: {fileID: 320285625}
   monsterBookButton: {fileID: 1740833497}
   gachaButton: {fileID: 90089880}
+  settingButton: {fileID: 683969953}
   activeMonster: {fileID: 8701086731859899308}
+  coin: {fileID: 521909916}
 --- !u!1 &1073275474
 GameObject:
   m_ObjectHideFlags: 3
@@ -118203,6 +118219,7 @@ MonoBehaviour:
   monsterImage: {fileID: 8701086732674490120}
   monsterName: {fileID: 8701086731936337530}
   monsterLevel: {fileID: 552275057}
+  panel: {fileID: 0}
 --- !u!114 &8701086731859899309
 MonoBehaviour:
   m_ObjectHideFlags: 0

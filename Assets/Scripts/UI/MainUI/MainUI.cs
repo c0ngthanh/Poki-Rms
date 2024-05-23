@@ -10,7 +10,9 @@ public class MainUI : MonoBehaviour
     public GameObject UIRoot;
     public Button monsterBookButton;
     public Button gachaButton;
+    public Button settingButton;
     public ActiveMonster activeMonster;
+    public Coin coin;
     private void Awake()
     {
         if(Instance == null){
@@ -20,6 +22,7 @@ public class MainUI : MonoBehaviour
         }
         monsterBookButton.onClick.AddListener(() => OpenUI("MonsterBook"));
         gachaButton.onClick.AddListener(() => OpenUI("GachaPanel"));
+        settingButton.onClick.AddListener(() => OpenUI("SettingPanel"));
     }
 
     public GameObject OpenUI(string name)
