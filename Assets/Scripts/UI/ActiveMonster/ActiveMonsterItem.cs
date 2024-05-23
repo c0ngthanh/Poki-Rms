@@ -14,7 +14,7 @@ public class ActiveMonsterItem : ItemBase
     public override void LoadSprite(Monster obj)
     {
         GetComponent<Button>().onClick.AddListener(() => {
-            Debug.Log("hehe");
+            PlayerController.instance.SetActiveMonster(obj);
         });
         MonsterSO monsterSO = obj.GetMonsterSO();
         monsterImage.sprite = Resources.Load<Sprite>($"MonsterUI/"+monsterSO.monsterName);

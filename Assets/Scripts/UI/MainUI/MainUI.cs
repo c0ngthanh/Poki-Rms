@@ -10,6 +10,7 @@ public class MainUI : MonoBehaviour
     public GameObject UIRoot;
     public Button monsterBookButton;
     public Button gachaButton;
+    public ActiveMonster activeMonster;
     private void Awake()
     {
         if(Instance == null){

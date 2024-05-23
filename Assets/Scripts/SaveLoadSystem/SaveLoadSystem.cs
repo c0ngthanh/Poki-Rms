@@ -36,14 +36,26 @@ public class GameData
     }
     public string Name;
     public List<MonsterDataSave> monsterLists;
+    public Monster activeMonster;
+    public Vector3 playerPosition;
+    public int ticket;
+    public int coin;
     public GameData()
     {
         Name = "";
         monsterLists = new List<MonsterDataSave>();
+        coin = 500;
+        ticket = 0;
+        playerPosition = Vector3.zero;
+        activeMonster = null;
     }
     public GameData(PlayerController playerController, string name)
     {
         Name = name;
+        coin = playerController.GetCoin();
+        ticket = playerController.GetTicket();
+        playerPosition = playerController.transform.position;
+        activeMonster = playerController.activeMonster;
         monsterLists = new List<MonsterDataSave>();
         foreach (Monster monster in playerController.GetMonstersList())
         {
@@ -112,6 +124,12 @@ public class SaveLoadSystem : MonoBehaviour
     }
     public void LoadMonster()
     {
+        if(gameData.activeMonster != null){
+            PlayerController.instance.SetActiveMonster(gameData.activeMonster);
+        }
+        PlayerController.instance.transform.position = gameData.playerPosition;
+        PlayerController.instance.SetCoin(gameData.coin);
+        PlayerController.instance.SetTicket(gameData.ticket);
         foreach (GameData.MonsterDataSave data in gameData.monsterLists)
         {
             foreach (Monster monster in GameManager.allMonsters)

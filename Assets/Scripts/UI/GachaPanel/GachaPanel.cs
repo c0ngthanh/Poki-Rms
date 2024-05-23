@@ -95,7 +95,7 @@ public class GachaPanel : MonoBehaviour
         MonsterInfo info = Instantiate(Resources.Load<MonsterInfo>(MonsterInfo.fileName()), MainUI.Instance.UIRoot.transform);
         info.SetMonster(newMonster);
         if(PlayerController.instance.GetMonstersList().Count ==0){
-            PlayerController.instance.activeMonster = newMonster;
+            PlayerController.instance.SetActiveMonster(newMonster);
         }
         PlayerController.instance.GetMonstersList().Add(newMonster);
     }

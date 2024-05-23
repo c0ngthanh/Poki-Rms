@@ -43,6 +43,9 @@ public class NPCBehavior : MonoBehaviour
             if(PlayerController.instance.coin >= price){
                 PlayerController.instance.coin -= price;
                 PlayerController.instance.ticket += 1;
+                NotificationText.ShowNotification("Buy 1 ticket successfully with 100 coins");
+            }else{
+                NotificationText.ShowNotification("You don't have enough coin to buy");
             }
         }
     }

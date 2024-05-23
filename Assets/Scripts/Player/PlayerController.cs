@@ -23,8 +23,6 @@ public class PlayerController : MonoBehaviour
 
     void Start()
     {
-        coin = 500;
-        ticket =0;
         animationController = GetComponent<Animator>();
         isMoving = false;
     }
@@ -56,9 +54,11 @@ public class PlayerController : MonoBehaviour
         animationController.SetBool("isMoving", isMoving);
         GetComponent<Rigidbody2D>().velocity = input;
         if(Input.GetKeyDown(KeyCode.Z)){
-            SaveLoadSystem.Instance.Save(SaveLoadSystem.Instance.tempSaveFile);
-            GameManager.Instance.SetUpBattle(monstersList[0],monstersList[1]);
-            SceneManager.LoadScene("BattleScene");
+            SaveLoadSystem.Instance.Save("Game");
+        }
+        if(Input.GetKeyDown(KeyCode.X)){
+            SceneManager.LoadScene("2DTopDown");
+            SaveLoadSystem.Instance.LoadFile("Game");
         }
         // if(Input.GetMouseButtonDown(0)){
         //     LoadPanel loadPanel = Resources.Load<LoadPanel>("Prefab/UI/LoadPanel");
@@ -73,5 +73,15 @@ public class PlayerController : MonoBehaviour
     }
     public int GetTicket(){
         return ticket;
+    }
+    public void SetCoin(int value){
+        coin = value;
+    }
+    public void SetTicket(int value){
+        ticket = value;
+    }
+    public void SetActiveMonster(Monster monster){
+        activeMonster = monster;
+        MainUI.Instance.activeMonster.Show();
     }
 }

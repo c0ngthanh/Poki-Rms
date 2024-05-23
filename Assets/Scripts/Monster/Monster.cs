@@ -113,6 +113,7 @@ public class Monster : MonoBehaviour
     }
     public void  SetMonsterStatFromData(Monster monster)
     {
+        maxHP = monster.GetMaxHP();
         ID = monster.GetMonsterSO().ID;
         monsterSO = monster.GetMonsterSO();
         HP = monster.GetMonsterStat(MonsterStats.HP);
@@ -290,6 +291,10 @@ public class Monster : MonoBehaviour
     {
         return baseHP;
     }
+    public int GetMaxHP()
+    {
+        return maxHP;
+    }
     public SkillBase GetSkillBase()
     {
         return GetComponent<SkillBase>();
@@ -325,10 +330,12 @@ public class Monster : MonoBehaviour
             speed += (int)(baseSpeed * level * 0.1);
         }
         if(job == MonsterJob.Tanker){
+            maxHP += (int)(baseHP * level * 0.2);
             HP += (int)(baseHP * level * 0.2);
             DEF += (int)(baseDEF * level * 0.2);
             HR += (int)(baseHR * level * 0.2);
         }else{
+            maxHP += (int)(baseHP * level * 0.1);
             HP += (int)(baseHP * level * 0.1);
             DEF += (int)(baseDEF * level * 0.1);
         }

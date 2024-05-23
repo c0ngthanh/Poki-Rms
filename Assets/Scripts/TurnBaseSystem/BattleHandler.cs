@@ -39,6 +39,8 @@ public class BattleHandler : MonoBehaviour
         SetUpMonster();
         player1Character.GetComponent<Monster>().SetMonsterStatFromData(monster1);
         player2Character.GetComponent<Monster>().SetMonsterStatFromData(monster2);
+        player1Character.GetComponent<Monster>().UpdateMonsterNotification();
+        player2Character.GetComponent<Monster>().UpdateMonsterNotification();
     }
     public void BattleHandlerUpdate()
     {
