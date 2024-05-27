@@ -16,10 +16,10 @@ public class Match3Visual : MonoBehaviour
     {
         Busy,
         WaitingForUser,
+        AI,
         TryFindMatches,
         GameOver,
     }
-
     [SerializeField] private Transform pfGemGridVisual;
     [SerializeField] private Transform pfGlassGridVisual;
     [SerializeField] private Transform pfBackgroundGridVisual;
@@ -34,6 +34,7 @@ public class Match3Visual : MonoBehaviour
     private bool isSetup;
     private bool isFirstSetup;
     private State state;
+    private State nextTurn;
     private float busyTimer;
     private Action onBusyTimerElapsedAction;
 
@@ -46,8 +47,8 @@ public class Match3Visual : MonoBehaviour
         state = State.Busy;
         isSetup = false;
         isFirstSetup = true;
-
         match3.OnLevelSet += Match3_OnLevelSet;
+        nextTurn = State.WaitingForUser;
     }
 
     private void Match3_OnLevelSet(object sender, Match3.OnLevelSetEventArgs e)
@@ -260,7 +261,13 @@ public class Match3Visual : MonoBehaviour
         else
         {
             // Keep Playing
-            SetState(State.WaitingForUser);
+            if(nextTurn == State.WaitingForUser){
+                SetState(State.WaitingForUser);
+                nextTurn = State.AI;
+            }else{
+                SetState(State.AI);
+                nextTurn = State.WaitingForUser;
+            }
         }
     }
 

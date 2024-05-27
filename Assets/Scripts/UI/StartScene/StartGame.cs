@@ -15,6 +15,7 @@ public class StartGame : MonoBehaviour
     public Button creditGame;
     public Button backBtn1;
     public Button backBtn2;
+    public GameObject cutScene;
     private void Awake(){
         startGame.onClick.AddListener(StartNewGame);
         loadGame.onClick.AddListener(LoadGameFrame);
@@ -71,8 +72,7 @@ public class StartGame : MonoBehaviour
 
     private void StartNewGame()
     {
-        SceneManager.LoadScene("2DTopDown");
-        SaveLoadSystem.Instance.LoadNewGame(); 
+        cutScene.SetActive(true);
     }
 
     

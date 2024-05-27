@@ -25,7 +25,7 @@ public class GameManager : MonoBehaviour
     public AudioClip battleAudio;
     public AudioClip battlePrepareAudio;
     public AudioSource source;
-    public BattleReward battleReward;
+    public BattleReward battleReward = null;
     [SerializeField] private BattleManager battleManager;
     private void Awake()
     {
@@ -56,7 +56,7 @@ public class GameManager : MonoBehaviour
         if (arg0.name == "2DTopDown")
         {
             PlaySound(mainAudio);
-            if (battleReward != null)
+            if (battleReward != null && battleReward.exp != 0 && battleReward.coin != 0 )
             {
                 PlayerController.instance.AddCoin(battleReward.coin);
                 PlayerController.instance.activeMonster.LevelUp(battleReward.exp);

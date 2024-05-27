@@ -10,7 +10,7 @@ public class Match3Bot : MonoBehaviour {
     private LevelSO levelSO;
 
     private void Awake() {
-
+        match3Visual.OnStateChanged += Match3Visual_OnStateChanged;
         match3.OnOutOfMoves += Match3_OnOutOfMoves;
         match3.OnWin += Match3_OnWin;
         match3.OnLevelSet += Match3_OnLevelSet;
@@ -37,7 +37,7 @@ public class Match3Bot : MonoBehaviour {
 
     private void Match3Visual_OnStateChanged(object sender, System.EventArgs e) {
         switch (match3Visual.GetState()) {
-            case Match3Visual.State.WaitingForUser:
+            case Match3Visual.State.AI:
                 BotDoMove();
                 break;
         }

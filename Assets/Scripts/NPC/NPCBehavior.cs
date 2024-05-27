@@ -8,7 +8,8 @@ public enum NPCType{
     Shopkeeper,
     Quest,
     Duelist,
-    Normal
+    Normal,
+    Teleport
 }
 public enum Item{
     Ticket
@@ -20,6 +21,7 @@ public class NPCBehavior : MonoBehaviour
     public int price;
     public Monster monster;
     public int level;
+    public Vector3 teleportPoint;
     // Start is called before the first frame update
     public void Action(){
         if(npcType == NPCType.Shopkeeper){
@@ -28,6 +30,14 @@ public class NPCBehavior : MonoBehaviour
         if(npcType == NPCType.Duelist){
             Duel();
         }
+        if(npcType == NPCType.Teleport){
+            Teleport();
+        }
+    }
+
+    private void Teleport()
+    {
+        PlayerController.instance.transform.position = teleportPoint;
     }
 
     private void Duel()
